@@ -6,7 +6,7 @@ import { Facebook, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 export function Footer() {
     return (
         <footer className="bg-slate-950 text-slate-200 py-12 border-t border-slate-800">
-            <div className="container grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="container px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Brand & Info */}
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-white">RAC Western Valley</h3>
@@ -14,6 +14,7 @@ export function Footer() {
                     <p className="text-sm text-slate-400">
                         Fellowship Through Service.
                     </p>
+                    {/* Social icons kept here as well for brand visibility, can be removed if strictly wanted in Contact */}
                     <div className="flex space-x-4 pt-2">
                         <Link href="https://instagram.com/rac_western_valley" target="_blank" className="hover:text-pink-500 transition-colors">
                             <Instagram className="h-5 w-5" />
@@ -42,22 +43,37 @@ export function Footer() {
                     </ul>
                 </div>
 
-                {/* Rotaract Essentials */}
+                {/* Contact Us (Moved to 3rd Column) */}
                 <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-white">Rotaract Essentials</h4>
-                    <div className="text-sm space-y-2 text-slate-400">
-                        <p><span className="font-semibold text-white">4-Way Test:</span> Is it the TRUTH? Is it FAIR to all concerned?</p>
-                        <p>Will it build GOODWILL and BETTER FRIENDSHIPS? Will it be BENEFICIAL to all concerned?</p>
-                        <p className="pt-2"><span className="font-semibold text-white">Rotaract Prayer</span></p>
+                    <h4 className="text-lg font-semibold text-white">Contact Us</h4>
+                    <div className="space-y-3 text-sm text-slate-400">
+                        <Link href="mailto:racwesternvalley@gmail.com" className="flex items-center space-x-2 hover:text-white transition-colors">
+                            <Mail className="h-4 w-4 shrink-0" />
+                            <span>racwesternvalley@gmail.com</span>
+                        </Link>
+                        <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors">
+                            <Instagram className="h-4 w-4 shrink-0" />
+                            <span>@rac_western_valley</span>
+                        </Link>
                     </div>
                 </div>
 
-                {/* Contact Us */}
-                <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-white">Contact Us</h4>
-                    <div className="flex items-center space-x-2 text-sm text-slate-400">
-                        <Mail className="h-4 w-4" />
-                        <span>racwesternvalley@gmail.com</span>
+                {/* Rotaract Essentials (Moved to 4th Column & Expanded) */}
+                <div className="space-y-6">
+                    <div>
+                        <h4 className="text-lg font-semibold text-white mb-2">Rotary 4 Way Test</h4>
+                        <ul className="text-sm text-slate-400 space-y-1 list-disc pl-4">
+                            <li>Is it the <span className="text-white font-medium">TRUTH</span>?</li>
+                            <li>Is it <span className="text-white font-medium">FAIR</span> to all concerned?</li>
+                            <li>Will it build <span className="text-white font-medium">GOODWILL</span> and BETTER FRIENDSHIPS?</li>
+                            <li>Will it be <span className="text-white font-medium">BENEFICIAL</span> to all concerned?</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="text-lg font-semibold text-white mb-2">Rotaract Prayer</h4>
+                        <p className="text-sm text-slate-400 italic leading-relaxed">
+                            "Oh! God! Our Almighty Father & Ruler of the Universe, We thank thee for the inspiration you have given us for the Rotaract movement based upon Fellowship through Service. We humbly beg you to continue thy grace to enable us to do Our Service to ourselves and to our neighbors and to honor and glory of thy holy name."
+                        </p>
                     </div>
                 </div>
             </div>
