@@ -93,6 +93,8 @@ export default function NewEventPage() {
                                         disabled={loading}
                                         onChange={(url) => field.onChange(url)}
                                         onRemove={() => field.onChange("")}
+                                        aspectRatio={3 / 4}
+                                        aspectRatioLabel="3:4 Portrait (Event Poster)"
                                     />
                                 </FormControl>
                                 <FormMessage />

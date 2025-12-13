@@ -20,13 +20,17 @@ interface ImageUploadProps {
     onChange: (value: string) => void;
     onRemove: (value: string) => void;
     value: string;
+    aspectRatio?: number; // e.g., 16/9 for landscape, 1 for square, 3/4 for portrait
+    aspectRatioLabel?: string; // e.g., "16:9 Landscape", "1:1 Square"
 }
 
 export function ImageUpload({
     disabled,
     onChange,
     onRemove,
-    value
+    value,
+    aspectRatio,
+    aspectRatioLabel = "Free Crop"
 }: ImageUploadProps) {
     const [isMounted, setIsMounted] = useState(false);
     const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -153,6 +157,11 @@ export function ImageUpload({
                 <DialogContent className="max-w-3xl">
                     <DialogHeader>
                         <DialogTitle>Crop Image</DialogTitle>
+                        {aspectRatioLabel && (
+                            <p className="text-sm text-muted-foreground mt-2">
+                                Aspect Ratio: <span className="font-semibold">{aspectRatioLabel}</span>
+                            </p>
+                        )}
                     </DialogHeader>
 
                     <div className="relative w-full h-[400px] bg-gray-100 dark:bg-gray-800">
@@ -161,7 +170,7 @@ export function ImageUpload({
                                 image={imageSrc}
                                 crop={crop}
                                 zoom={zoom}
-                                aspect={undefined} // Free aspect ratio
+                                aspect={aspectRatio} // Use dynamic aspect ratio
                                 onCropChange={setCrop}
                                 onCropComplete={onCropComplete}
                                 onZoomChange={setZoom}

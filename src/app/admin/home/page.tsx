@@ -216,6 +216,8 @@ export default function AdminHomePage() {
                                                             }}
                                                             onRemove={() => { }}
                                                             disabled={saving}
+                                                            aspectRatio={16 / 9}
+                                                            aspectRatioLabel="16:9 Landscape (Recommended for Hero)"
                                                         />
                                                     </div>
                                                 </FormControl>
