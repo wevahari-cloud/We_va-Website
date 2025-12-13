@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Calendar, Activity } from "lucide-react";
 
@@ -42,9 +43,18 @@ export default function AdminDashboard() {
             <div className="rounded-lg border p-4 shadow-sm bg-white dark:bg-slate-800">
                 <h3 className="font-semibold mb-2">Quick Actions</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {/* Placeholders for actions */}
-                    <div className="h-24 rounded border border-dashed flex items-center justify-center text-muted-foreground">Add Event</div>
-                    <div className="h-24 rounded border border-dashed flex items-center justify-center text-muted-foreground">Update Team</div>
+                    <Link href="/admin/events/new" className="h-24 rounded border border-dashed hover:border-solid hover:border-primary hover:bg-primary/5 flex flex-col gap-2 items-center justify-center text-muted-foreground hover:text-primary transition-all">
+                        <Calendar className="h-6 w-6" />
+                        <span className="font-medium">Add Event</span>
+                    </Link>
+                    <Link href="/admin/team/new" className="h-24 rounded border border-dashed hover:border-solid hover:border-primary hover:bg-primary/5 flex flex-col gap-2 items-center justify-center text-muted-foreground hover:text-primary transition-all">
+                        <Users className="h-6 w-6" />
+                        <span className="font-medium">Add Team Member</span>
+                    </Link>
+                    <Link href="/admin/gallery/new" className="h-24 rounded border border-dashed hover:border-solid hover:border-primary hover:bg-primary/5 flex flex-col gap-2 items-center justify-center text-muted-foreground hover:text-primary transition-all">
+                        <Activity className="h-6 w-6" />
+                        <span className="font-medium">Upload Photo</span>
+                    </Link>
                 </div>
             </div>
         </div>

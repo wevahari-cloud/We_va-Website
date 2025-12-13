@@ -24,6 +24,10 @@ export default function EventsPage() {
             }));
             setEvents(eventsData);
             setLoading(false);
+        }, (error) => {
+            console.error("Error fetching events:", error);
+            toast.error("Failed to load events. Check permissions.");
+            setLoading(false);
         });
 
         return () => unsubscribe();
@@ -47,7 +51,7 @@ export default function EventsPage() {
                 <h1 className="text-3xl font-bold">Events</h1>
                 <Button asChild>
                     <Link href="/admin/events/new">
-                        <Plus className="mr-2 h-4 w-4" /> Not New Event
+                        <Plus className="mr-2 h-4 w-4" /> Add New Event
                     </Link>
                 </Button>
             </div>
