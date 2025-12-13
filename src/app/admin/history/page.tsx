@@ -23,6 +23,10 @@ export default function HistoryAdminPage() {
             }));
             setItems(data);
             setLoading(false);
+        }, (error) => {
+            console.error("Error fetching history:", error);
+            toast.error("Failed to load history. Check permissions.");
+            setLoading(false);
         });
 
         return () => unsubscribe();
