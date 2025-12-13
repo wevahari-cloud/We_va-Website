@@ -4,15 +4,19 @@ import { WhyJoinSection } from "@/components/home/why-join-section";
 import { EventsPreviewSection } from "@/components/home/events-preview-section";
 import { PresidentMessage } from "@/components/home/president-message";
 
-export default function HomePage() {
+import { getHomeContent } from "@/actions/home";
+
+export default async function HomePage() {
+  const homeData = await getHomeContent();
+
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroSection />
-      <StatsSection />
+      <HeroSection data={homeData} />
+      <StatsSection data={homeData} />
       <EventsPreviewSection />
       <WhyJoinSection />
 
-      <PresidentMessage />
+      <PresidentMessage data={homeData} />
     </div>
   );
 }

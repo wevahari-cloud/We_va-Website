@@ -1,22 +1,6 @@
-"use client";
-
 import { Users, Calendar, Heart, Globe } from "lucide-react";
-import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 
-export function StatsSection() {
-    const [data, setData] = useState<any>(null);
-
-    useEffect(() => {
-        const unsub = onSnapshot(doc(db, "content", "home"), (doc) => {
-            if (doc.exists()) {
-                setData(doc.data());
-            }
-        });
-        return () => unsub();
-    }, []);
-
+export function StatsSection({ data }: { data: any }) {
     const statsMembers = data?.statsMembers || "120+";
     const statsProjects = data?.statsProjects || "500+";
     const statsLives = data?.statsLives || "10k+";

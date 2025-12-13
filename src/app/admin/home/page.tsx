@@ -18,8 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUpload } from "@/components/admin/image-upload";
-import { db } from "@/lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { getHomeContent, updateHomeContent } from "@/actions/home";
 import { toast } from "sonner";
 import { Loader2, Save } from "lucide-react";
 
@@ -71,10 +70,9 @@ export default function AdminHomePage() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const docRef = doc(db, "content", "home");
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    form.reset(docSnap.data());
+                const data = await getHomeContent();
+                if (data) {
+                    form.reset(data as any);
                 }
             } catch (error) {
                 console.error("Error fetching home content:", error);
@@ -89,8 +87,12 @@ export default function AdminHomePage() {
     const onSubmit = async (values: z.infer<typeof homeSchema>) => {
         try {
             setSaving(true);
-            await setDoc(doc(db, "content", "home"), values);
-            toast.success("Home page content updated!");
+            const result = await updateHomeContent(values);
+            if (result.success) {
+                toast.success("Home page content updated!");
+            } else {
+                toast.error(result.error || "Failed to save changes");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Failed to save changes");

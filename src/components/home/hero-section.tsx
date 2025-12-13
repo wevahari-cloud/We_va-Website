@@ -13,28 +13,13 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { db } from "@/lib/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 
 
 
-export function HeroSection() {
+export function HeroSection({ data }: { data: any }) {
     const plugin = React.useRef(
         Autoplay({ delay: 5000, stopOnInteraction: true })
     );
-
-    const [data, setData] = React.useState<any>(null);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const unsub = onSnapshot(doc(db, "content", "home"), (doc) => {
-            if (doc.exists()) {
-                setData(doc.data());
-            }
-            setLoading(false);
-        });
-        return () => unsub();
-    }, []);
 
     // Default Fallback
     const heroTitle = data?.heroTitle || "Fellowship Through Service";

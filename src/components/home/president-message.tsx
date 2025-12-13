@@ -1,26 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
-import { Loader2 } from "lucide-react";
-
-export function PresidentMessage() {
-    const [data, setData] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const unsub = onSnapshot(doc(db, "content", "home"), (doc) => {
-            if (doc.exists()) {
-                setData(doc.data());
-            }
-            setLoading(false);
-        });
-        return () => unsub();
-    }, []);
-
-    if (loading) return null; // Or a skeleton
-
+export function PresidentMessage({ data }: { data: any }) {
     // Fallback if no data
     const {
         presidentName = "Rtr. Official Name",
