@@ -10,7 +10,7 @@ export function Footer() {
                 {/* Brand & Info */}
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-white">RAC Western Valley</h3>
-                    <p className="text-sm text-slate-400">Club ID: 214199 | District 3201</p>
+                    <p className="text-sm text-slate-400">Club ID: 214199 | District 3206</p>
                     <p className="text-sm text-slate-400">
                         Fellowship Through Service.
                     </p>
@@ -42,28 +42,22 @@ export function Footer() {
                     </ul>
                 </div>
 
-                {/* Rotary Essentials */}
+                {/* Rotaract Essentials */}
                 <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-white">Rotary Essentials</h4>
+                    <h4 className="text-lg font-semibold text-white">Rotaract Essentials</h4>
                     <div className="text-sm space-y-2 text-slate-400">
                         <p><span className="font-semibold text-white">4-Way Test:</span> Is it the TRUTH? Is it FAIR to all concerned?</p>
                         <p>Will it build GOODWILL and BETTER FRIENDSHIPS? Will it be BENEFICIAL to all concerned?</p>
+                        <p className="pt-2"><span className="font-semibold text-white">Rotaract Prayer</span></p>
                     </div>
                 </div>
 
-                {/* Contact / Newsletter */}
+                {/* Contact Us */}
                 <div className="space-y-4">
                     <h4 className="text-lg font-semibold text-white">Contact Us</h4>
                     <div className="flex items-center space-x-2 text-sm text-slate-400">
                         <Mail className="h-4 w-4" />
-                        <span>contact@racwesternvalley.in</span>
-                    </div>
-                    <p className="text-xs text-slate-500 pt-4">
-                        Subscribe for updates (Coming soon)
-                    </p>
-                    <div className="flex w-full max-w-sm items-center space-x-2">
-                        <Input type="email" placeholder="Email" className="bg-slate-900 border-slate-700" disabled />
-                        <Button type="submit" variant="secondary" size="sm" disabled>Subscribe</Button>
+                        <span>racwesternvalley@gmail.com</span>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Rotaract Club of Western Valley | Club 214199",
-  description: "Official website of Rotaract Club of Western Valley (RID 3201). Fellowship Through Service.",
+  description: "Official website of Rotaract Club of Western Valley (RID 3206). Fellowship Through Service.",
 };
 
 export default function RootLayout({

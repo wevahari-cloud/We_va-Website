@@ -65,7 +65,7 @@ export default function ContactPage() {
                                 <MapPin className="h-6 w-6 text-primary shrink-0" />
                                 <div>
                                     <h3 className="font-semibold">Visit Us</h3>
-                                    <p className="text-muted-foreground">Rotary Community Hall,<br />Western Valley, District 3201,<br />India.</p>
+                                    <p className="text-muted-foreground">Rotary Community Hall,<br />Western Valley, District 3206,<br />India.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">

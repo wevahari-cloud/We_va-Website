@@ -14,7 +14,7 @@ export default function AboutPage() {
             <div className="text-center mb-16">
                 <h1 className="text-4xl font-bold tracking-tight mb-4">About Us</h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                    Part of Rotary International District 3201. Driven by fellowship, dedicated to service.
+                    Part of Rotary International District 3206. Driven by fellowship, dedicated to service.
                 </p>
             </div>
 
