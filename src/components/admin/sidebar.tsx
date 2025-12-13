@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Calendar, History, Settings, LogOut, Image as ImageIcon } from "lucide-react";
+import { LayoutDashboard, Users, Calendar, History, Settings, LogOut, Image as ImageIcon, Home } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 
 const ADMIN_NAV = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { label: "Home Page", href: "/admin/home", icon: Home },
     { label: "Team Management", href: "/admin/team", icon: Users },
     { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "History Timeline", href: "/admin/history", icon: History },

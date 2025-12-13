@@ -1,13 +1,34 @@
-import { Users, Calendar, Heart, Globe } from "lucide-react";
+"use client";
 
-const STATS = [
-    { id: 1, label: "Active Members", value: "120+", icon: Users },
-    { id: 2, label: "Projects Completed", value: "500+", icon: Calendar },
-    { id: 3, label: "Lives Touched", value: "10k+", icon: Heart },
-    { id: 4, label: "Years of Service", value: "12", icon: Globe },
-];
+import { Users, Calendar, Heart, Globe } from "lucide-react";
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export function StatsSection() {
+    const [data, setData] = useState<any>(null);
+
+    useEffect(() => {
+        const unsub = onSnapshot(doc(db, "content", "home"), (doc) => {
+            if (doc.exists()) {
+                setData(doc.data());
+            }
+        });
+        return () => unsub();
+    }, []);
+
+    const statsMembers = data?.statsMembers || "120+";
+    const statsProjects = data?.statsProjects || "500+";
+    const statsLives = data?.statsLives || "10k+";
+    const statsYears = data?.statsYears || "12";
+
+    const STATS = [
+        { id: 1, label: "Active Members", value: statsMembers, icon: Users },
+        { id: 2, label: "Projects Completed", value: statsProjects, icon: Calendar },
+        { id: 3, label: "Lives Touched", value: statsLives, icon: Heart },
+        { id: 4, label: "Years of Service", value: statsYears, icon: Globe },
+    ];
+
     return (
         <section className="py-16 bg-primary text-primary-foreground">
             <div className="container mx-auto px-4">

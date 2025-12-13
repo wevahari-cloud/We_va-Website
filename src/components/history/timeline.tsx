@@ -7,8 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
-import { InstagramEmbed } from 'react-social-media-embed';
-
 // Fallback data
 const FALLBACK_DATA = [
     {
@@ -74,26 +72,13 @@ export function Timeline() {
                         {/* Content Card */}
                         <div className="ml-12 md:ml-0 md:w-1/2 px-4">
                             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                                {/* Instagram Embed or Standard Content */}
-                                {item.instagramUrl ? (
-                                    <div className="w-full flex justify-center bg-slate-50 dark:bg-slate-900 p-2">
-                                        <div style={{ maxWidth: 328 }}> {/* 328px is standard Insta width */}
-                                            <InstagramEmbed
-                                                url={item.instagramUrl}
-                                                width={328}
-                                                captioned
-                                            />
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-800">
-                                        {item.imageUrl ? (
-                                            <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Media</div>
-                                        )}
-                                    </div>
-                                )}
+                                <div className="relative h-48 w-full bg-slate-100 dark:bg-slate-800">
+                                    {item.imageUrl ? (
+                                        <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Media</div>
+                                    )}
+                                </div>
 
                                 <div className="relative">
                                     <Badge className="absolute top-(-20) left-4 z-20">{item.year}</Badge>

@@ -19,14 +19,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { toast } from "sonner";
-import { Loader2, Instagram } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
     year: z.string().min(4, "Year is required (e.g. 2023)"),
     title: z.string().min(2, "Title is required"),
     date: z.string().min(1, "Date is required"),
     description: z.string().optional(),
-    instagramUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
 });
 
 export default function NewHistoryPage() {
@@ -40,7 +39,6 @@ export default function NewHistoryPage() {
             title: "",
             date: "",
             description: "",
-            instagramUrl: "",
         },
     });
 
@@ -85,23 +83,7 @@ export default function NewHistoryPage() {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
-                    <FormField
-                        control={form.control}
-                        name="instagramUrl"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Instagram Post Link</FormLabel>
-                                <div className="text-xs text-muted-foreground mb-2">Paste the full URL of the post (e.g. https://www.instagram.com/p/CoXt...)</div>
-                                <FormControl>
-                                    <div className="relative">
-                                        <Instagram className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                        <Input className="pl-10" disabled={loading} placeholder="https://instagram.com/p/..." {...field} />
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <FormField
