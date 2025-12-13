@@ -1,75 +1,60 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Plus, Trash } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { db } from "@/lib/firebase";
-import { collection, onSnapshot, query, orderBy, deleteDoc, doc } from "firebase/firestore";
+import Link from "next/link";
+import { Plus, Loader2, Trash2 } from "lucide-react";
+import { getGalleryImages, deleteGalleryImage } from "@/actions/gallery";
 import { toast } from "sonner";
 
-export default function GalleryAdminPage() {
-    const [items, setItems] = useState<any[]>([]);
+export default function AdminGalleryPage() {
+    const [images, setImages] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const q = query(collection(db, "gallery"), orderBy("createdAt", "desc"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const data = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setItems(data);
-            setLoading(false);
-        });
-
-        return () => unsubscribe();
+        loadGallery();
     }, []);
 
-    const handleDelete = async (id: string) => {
-        if (!confirm("Delete this image?")) return;
-        try {
-            await deleteDoc(doc(db, "gallery", id));
-            toast.success("Deleted successfully");
-        } catch (error) {
-            toast.error("Error deleting image");
+    async function loadGallery() {
+        const data = await getGalleryImages();
+        setImages(data);
+        setLoading(false);
+    }
+
+    async function handleDelete(id: number) {
+        if (confirm("Delete this photo?")) {
+            const result = await deleteGalleryImage(id);
+            if (result.success) {
+                toast.success("Deleted");
+                loadGallery();
+            }
         }
-    };
+    }
+
+    if (loading) return <div className="p-8"><Loader2 className="animate-spin" /></div>;
 
     return (
-        <div className="space-y-4">
-            <div className="flex items-center justify-between">
+        <div className="space-y-6">
+            <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Gallery Management</h1>
-                <Button asChild>
-                    <Link href="/admin/gallery/new">
-                        <Plus className="mr-2 h-4 w-4" /> Upload Photo
-                    </Link>
-                </Button>
+                <Button asChild><Link href="/admin/gallery/new"><Plus className="mr-2 h-4 w-4" />Upload Photo</Link></Button>
             </div>
-
-            {items.length === 0 ? (
-                <div className="p-12 text-center border rounded-lg bg-slate-50 dark:bg-slate-900 text-muted-foreground">
-                    No images in gallery yet. Upload some memories!
-                </div>
-            ) : (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {items.map((item) => (
-                        <div key={item.id} className="relative group aspect-square rounded-lg overflow-hidden border bg-slate-100">
-                            <img src={item.imageUrl} alt={item.caption} className="w-full h-full object-cover" />
-                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <Button variant="destructive" size="icon" onClick={() => handleDelete(item.id)}>
-                                    <Trash className="h-4 w-4" />
-                                </Button>
-                            </div>
-                            {item.caption && (
-                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-2 truncate">
-                                    {item.caption}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            )}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {images.map(img => (
+                    <div key={img.id} className="relative group">
+                        <img src={img.imageUrl} alt={img.title || ""} className="w-full aspect-square object-cover rounded" />
+                        <Button
+                            variant="destructive"
+                            size="icon"
+                            className="absolute top-2 right-2"
+                            onClick={() => handleDelete(img.id)}
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

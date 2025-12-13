@@ -18,8 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageUpload } from "@/components/admin/image-upload";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addEvent } from "@/actions/events";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -54,17 +53,10 @@ export default function NewEventPage() {
         try {
             setLoading(true);
 
-            const timeout = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Request timed out")), 15000)
-            );
-
-            await Promise.race([
-                addDoc(collection(db, "events"), {
-                    ...values,
-                    createdAt: new Date(),
-                }),
-                timeout
-            ]);
+            const result = await addEvent(values);
+            if (!result.success) {
+                throw new Error(result.error || "Failed to add event");
+            }
 
             toast.success("Event created successfully");
             router.push("/admin/events");

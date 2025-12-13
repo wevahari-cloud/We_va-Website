@@ -1,6 +1,9 @@
 import { GalleryGrid } from "@/components/gallery/gallery-grid";
+import { getGalleryImages } from "@/actions/gallery";
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+    const images = await getGalleryImages();
+
     return (
         <div className="container mx-auto px-4 py-12">
             <div className="text-center mb-12">
@@ -9,7 +12,7 @@ export default function GalleryPage() {
                     Capturing moments of service, fellowship, and impact.
                 </p>
             </div>
-            <GalleryGrid />
+            <GalleryGrid images={images} />
         </div>
     );
 }

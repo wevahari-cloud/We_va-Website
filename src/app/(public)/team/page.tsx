@@ -1,6 +1,9 @@
 import { TeamGrid } from "@/components/team/team-grid";
+import { getTeamMembers } from "@/actions/team";
 
-export default function TeamPage() {
+export default async function TeamPage() {
+    const members = await getTeamMembers();
+
     return (
         <div className="container mx-auto px-4 py-12">
             <div className="text-center mb-16">
@@ -9,7 +12,7 @@ export default function TeamPage() {
                     Meet the dedicated team working behind the scenes to drive our projects and community initiatives forward.
                 </p>
             </div>
-            <TeamGrid />
+            <TeamGrid members={members} />
         </div>
     );
 }

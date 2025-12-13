@@ -16,8 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "@/components/admin/image-upload";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addGalleryImage } from "@/actions/gallery";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -41,10 +40,8 @@ export default function NewGalleryPhotoPage() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            await addDoc(collection(db, "gallery"), {
-                ...values,
-                createdAt: new Date(),
-            });
+            const result = await addGalleryImage({ imageUrl: values.imageUrl, title: values.caption });
+            if (!result.success) throw new Error(result.error);
             toast.success("Photo uploaded successfully");
             router.push("/admin/gallery");
             router.refresh();

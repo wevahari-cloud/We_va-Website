@@ -17,8 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "@/components/admin/image-upload";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addTeamMember } from "@/actions/team";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -46,13 +45,14 @@ export default function NewTeamMemberPage() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            await addDoc(collection(db, "team"), {
-                ...values,
-                createdAt: new Date(),
-            });
-            toast.success("Member added successfully");
-            router.push("/admin/team");
-            router.refresh();
+            const result = await addTeamMember(values);
+            if (result.success) {
+                toast.success("Member added successfully");
+                router.push("/admin/team");
+                router.refresh();
+            } else {
+                toast.error(result.error || "Failed to add member");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong");

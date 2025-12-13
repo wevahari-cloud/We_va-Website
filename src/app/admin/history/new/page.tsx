@@ -16,8 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addHistoryMilestone } from "@/actions/history";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -46,18 +45,8 @@ export default function NewHistoryPage() {
         try {
             setLoading(true);
 
-            // Timeout promise
-            const timeout = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Request timed out")), 15000)
-            );
-
-            await Promise.race([
-                addDoc(collection(db, "history"), {
-                    ...values,
-                    createdAt: new Date(),
-                }),
-                timeout
-            ]);
+            const result = await addHistoryMilestone(values);
+            if (!result.success) throw new Error(result.error);
 
             toast.success("Milestone created successfully");
             router.push("/admin/history");
