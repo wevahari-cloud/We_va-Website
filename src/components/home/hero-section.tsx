@@ -64,15 +64,18 @@ export function HeroSection({ data }: { data: any }) {
             >
                 <CarouselContent>
                     {images.map((img: string, index: number) => (
-                        <CarouselItem key={index} className="relative h-[60vh] md:h-[80vh]">
-                            <div
-                                className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
-                                style={{ backgroundImage: `url(${img})` }}
-                            >
-                                <div className="absolute inset-0 bg-black/60" />
-                            </div>
+                        <CarouselItem key={index} className="relative h-[60vh] md:h-[80vh] overflow-hidden">
+                            {/* Background Image with better control */}
+                            <img
+                                src={img}
+                                alt="Hero background"
+                                className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 hover:scale-110"
+                            />
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/60" />
+
                             {/* Text Overlay (Same for all slides to simplify admin) */}
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-white">
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-white z-10">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
