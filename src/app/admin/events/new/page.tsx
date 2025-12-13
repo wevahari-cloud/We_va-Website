@@ -53,16 +53,29 @@ export default function NewEventPage() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            await addDoc(collection(db, "events"), {
-                ...values,
-                createdAt: new Date(),
-            });
+
+            const timeout = new Promise((_, reject) =>
+                setTimeout(() => reject(new Error("Request timed out")), 15000)
+            );
+
+            await Promise.race([
+                addDoc(collection(db, "events"), {
+                    ...values,
+                    createdAt: new Date(),
+                }),
+                timeout
+            ]);
+
             toast.success("Event created successfully");
             router.push("/admin/events");
             router.refresh();
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            toast.error("Something went wrong");
+            if (error.message === "Request timed out") {
+                toast.error("Request timed out. Check connection.");
+            } else {
+                toast.error("Something went wrong");
+            }
         } finally {
             setLoading(false);
         }
