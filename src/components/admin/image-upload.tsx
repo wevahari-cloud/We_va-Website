@@ -1,9 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { CldUploadButton } from "next-cloudinary";
+import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { ImagePlus, Trash } from "lucide-react";
+import { ImagePlus, Trash, Crop, X } from "lucide-react";
+import Cropper from "react-easy-crop";
+import { Area } from "react-easy-crop";
+import { getCroppedImg, readFile } from "@/lib/crop-utils";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import { Slider } from "@/components/ui/slider";
 
 interface ImageUploadProps {
     disabled?: boolean;
@@ -19,13 +29,85 @@ export function ImageUpload({
     value
 }: ImageUploadProps) {
     const [isMounted, setIsMounted] = useState(false);
+    const [imageSrc, setImageSrc] = useState<string | null>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
-    const onUpload = (result: any) => {
-        onChange(result.info.secure_url);
+    const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const imageDataUrl = await readFile(file);
+            setImageSrc(imageDataUrl);
+            setIsDialogOpen(true);
+        }
+    };
+
+    const handleCropConfirm = async () => {
+        if (!imageSrc || !croppedAreaPixels) return;
+
+        try {
+            setUploading(true);
+
+            // Get the cropped image blob
+            const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+
+            // Upload to Cloudinary using unsigned upload
+            // Note: This requires an unsigned upload preset named 'western_valley'
+            // to be created in your Cloudinary dashboard
+            const formData = new FormData();
+            formData.append('file', croppedBlob, 'cropped-image.jpg');
+            formData.append('upload_preset', 'western_valley');
+
+            // Cloudinary cloud name - update this with your actual cloud name
+            const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'demo';
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Upload failed');
+            }
+
+            const data = await response.json();
+
+            if (data.secure_url) {
+                onChange(data.secure_url);
+            }
+
+            // Reset state
+            setImageSrc(null);
+            setIsDialogOpen(false);
+            setCrop({ x: 0, y: 0 });
+            setZoom(1);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleCancel = () => {
+        setImageSrc(null);
+        setIsDialogOpen(false);
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
     };
 
     if (!isMounted) {
@@ -46,16 +128,82 @@ export function ImageUpload({
                     </div>
                 )}
             </div>
-            <CldUploadButton
-                onSuccess={onUpload}
-                options={{ maxFiles: 1 }}
-                uploadPreset="western_valley" // NOTE: User needs to create this unsigned preset in Cloudinary
-            >
-                <Button disabled={disabled} variant="secondary" type="button">
-                    <ImagePlus className="h-4 w-4 mr-2" />
-                    Upload Image
-                </Button>
-            </CldUploadButton>
+
+            <div>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    disabled={disabled}
+                    className="hidden"
+                    id="image-upload-input"
+                />
+                <label htmlFor="image-upload-input">
+                    <Button disabled={disabled} variant="secondary" type="button" asChild>
+                        <span>
+                            <ImagePlus className="h-4 w-4 mr-2" />
+                            Upload Image
+                        </span>
+                    </Button>
+                </label>
+            </div>
+
+            {/* Crop Dialog */}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="max-w-3xl">
+                    <DialogHeader>
+                        <DialogTitle>Crop Image</DialogTitle>
+                    </DialogHeader>
+
+                    <div className="relative w-full h-[400px] bg-gray-100 dark:bg-gray-800">
+                        {imageSrc && (
+                            <Cropper
+                                image={imageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={undefined} // Free aspect ratio
+                                onCropChange={setCrop}
+                                onCropComplete={onCropComplete}
+                                onZoomChange={setZoom}
+                            />
+                        )}
+                    </div>
+
+                    <div className="space-y-4 pt-4">
+                        <div className="flex items-center gap-4">
+                            <label className="text-sm font-medium min-w-[60px]">Zoom</label>
+                            <Slider
+                                value={[zoom]}
+                                onValueChange={(value) => setZoom(value[0])}
+                                min={1}
+                                max={3}
+                                step={0.1}
+                                className="flex-1"
+                            />
+                        </div>
+                    </div>
+
+                    <DialogFooter>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleCancel}
+                            disabled={uploading}
+                        >
+                            <X className="h-4 w-4 mr-2" />
+                            Cancel
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={handleCropConfirm}
+                            disabled={uploading}
+                        >
+                            <Crop className="h-4 w-4 mr-2" />
+                            {uploading ? 'Uploading...' : 'Crop & Upload'}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
