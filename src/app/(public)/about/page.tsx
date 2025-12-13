@@ -15,6 +15,8 @@ export default function AboutPage() {
                 <h1 className="text-4xl font-bold tracking-tight mb-4">About Us</h1>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                     Part of Rotary International District 3206. Driven by fellowship, dedicated to service.
+                    <br />
+                    "Family of Rotary Club of Coimbatore Town"
                 </p>
             </div>
 
@@ -53,6 +55,7 @@ export default function AboutPage() {
                         "Community Service",
                         "Professional Service",
                         "International Service",
+                        "District Priority Project 'DREAM'",
                     ].map((avenue, idx) => (
                         <div key={idx} className="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
                             <Heart className="h-10 w-10 text-primary mb-4" />
