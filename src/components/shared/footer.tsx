@@ -14,21 +14,7 @@ export function Footer() {
                     <p className="text-sm text-slate-400">
                         Fellowship Through Service.
                     </p>
-                    {/* Social icons kept here as well for brand visibility, can be removed if strictly wanted in Contact */}
-                    <div className="flex space-x-4 pt-2">
-                        <Link href="https://instagram.com/rac_western_valley" target="_blank" className="hover:text-pink-500 transition-colors">
-                            <Instagram className="h-5 w-5" />
-                        </Link>
-                        <Link href="#" className="hover:text-blue-500 transition-colors">
-                            <Facebook className="h-5 w-5" />
-                        </Link>
-                        <Link href="#" className="hover:text-blue-400 transition-colors">
-                            <Twitter className="h-5 w-5" />
-                        </Link>
-                        <Link href="#" className="hover:text-blue-700 transition-colors">
-                            <Linkedin className="h-5 w-5" />
-                        </Link>
-                    </div>
+
                 </div>
 
                 {/* Quick Links */}
