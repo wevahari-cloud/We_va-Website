@@ -61,7 +61,7 @@ export function HeroSection() {
                                 className="absolute inset-0 bg-cover bg-center"
                                 style={{ backgroundImage: `url(${slide.image})` }}
                             >
-                                <div className="absolute inset-0 bg-black/50" />
+                                <div className="absolute inset-0 bg-black/60" />
                             </div>
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-white">
                                 <motion.div
@@ -69,10 +69,10 @@ export function HeroSection() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8 }}
                                 >
-                                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight drop-shadow-md text-slate-100">
+                                    <h1 className="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-xl text-white">
                                         {slide.title}
                                     </h1>
-                                    <p className="text-lg md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-sm text-slate-200">
+                                    <p className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto font-medium drop-shadow-md text-slate-100 leading-relaxed">
                                         {slide.subtitle}
                                     </p>
                                     <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-yellow-400 font-semibold text-lg px-8 py-6 rounded-full shadow-lg transition-transform hover:scale-105">

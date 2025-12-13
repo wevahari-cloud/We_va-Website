@@ -32,13 +32,16 @@ export function Navbar() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 items-center justify-between">
+            <div className="container mx-auto px-4 md:px-8 flex h-20 items-center justify-between">
                 {/* Logo Section */}
-                <Link href="/" className="flex items-center space-x-2">
-                    {/* Using text for now, assume Logo image can be added later */}
-                    <div className="text-xl font-bold tracking-tight text-primary">
-                        RAC Western Valley
-                        <span className="hidden sm:inline-block text-muted-foreground text-sm ml-2 font-normal">| 214199</span>
+                {/* Logo Section */}
+                <Link href="/" className="flex items-center gap-3">
+                    <img src="/pulse-logo.jpg" alt="Pulse of Purpose Logo" className="h-10 w-auto object-contain rounded-sm" />
+                    <div className="flex flex-col">
+                        <span className="text-lg font-bold tracking-tight text-primary leading-tight">
+                            RAC Western Valley
+                        </span>
+                        <span className="text-xs text-muted-foreground font-medium">Club ID: 214199</span>
                     </div>
                 </Link>
 
