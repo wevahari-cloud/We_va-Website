@@ -69,7 +69,7 @@ export function HeroSection({ data }: { data: any }) {
                             <img
                                 src={img}
                                 alt="Hero background"
-                                className="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 hover:scale-110"
+                                className="absolute inset-0 w-full h-full object-cover object-[50%_35%] scale-105 transition-transform duration-1000 hover:scale-110"
                             />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-black/60" />
