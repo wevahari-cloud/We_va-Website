@@ -102,8 +102,8 @@ export default async function PublicLeadersPage() {
                                 <div className="bg-muted/30 p-6 text-center border-b space-y-3">
                                     <h3 className="text-2xl font-bold">{year.name}</h3>
                                     {year.themeLogoUrl && (
-                                        <div className="h-20 flex items-center justify-center">
-                                            <img src={year.themeLogoUrl} alt="Year Theme" className="h-full object-contain" />
+                                        <div className="h-20 w-20 flex items-center justify-center mx-auto rounded-full overflow-hidden border-2 border-border bg-white p-1">
+                                            <img src={year.themeLogoUrl} alt="Year Theme" className="w-full h-full object-contain rounded-full" />
                                         </div>
                                     )}
                                     {year.themeTitle && (
