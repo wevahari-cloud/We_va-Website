@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ImageUpload } from "@/components/admin/image-upload";
 import { addHistoryMilestone } from "@/actions/history";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -25,6 +26,7 @@ const formSchema = z.object({
     title: z.string().min(2, "Title is required"),
     date: z.string().min(1, "Date is required"),
     description: z.string().optional(),
+    imageUrl: z.string().optional(),
 });
 
 export default function NewHistoryPage() {
@@ -38,6 +40,7 @@ export default function NewHistoryPage() {
             title: "",
             date: "",
             description: "",
+            imageUrl: "",
         },
     });
 
@@ -71,8 +74,26 @@ export default function NewHistoryPage() {
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
-
+                    <FormField
+                        control={form.control}
+                        name="imageUrl"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Milestone Image (Optional)</FormLabel>
+                                <FormControl>
+                                    <ImageUpload
+                                        value={field.value || ""}
+                                        disabled={loading}
+                                        onChange={(url) => field.onChange(url)}
+                                        onRemove={() => field.onChange("")}
+                                        aspectRatio={16 / 9}
+                                        aspectRatioLabel="16:9 Landscape (Recommended)"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <FormField
