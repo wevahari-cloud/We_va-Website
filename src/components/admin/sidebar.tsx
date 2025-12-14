@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 const ADMIN_NAV = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { label: "Home Page", href: "/admin/home", icon: Home },
-    { label: "Team Management", href: "/admin/team", icon: Users },
     { label: "Leaders", href: "/admin/leaders", icon: Crown }, // Added Leaders link
     { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "Gallery", href: "/admin/gallery", icon: ImageIcon },
