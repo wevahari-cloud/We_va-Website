@@ -20,16 +20,16 @@ export default async function PublicLeadersPage() {
             {/* Section 1: Board of Officials (Zigzag Layout) */}
             <section>
                 <h2 className="text-3xl font-bold text-center mb-16">Board of Officials</h2>
-                <div className="space-y-12 max-w-5xl mx-auto">
+                <div className="space-y-8 max-w-4xl mx-auto">
                     {leaders.map((leader, index) => (
                         <div
                             key={leader.id}
-                            className={`flex flex-col md:flex-row items-center gap-6 md:gap-12 ${index % 2 === 1 ? "md:flex-row-reverse" : ""
+                            className={`flex flex-col md:flex-row items-center gap-4 md:gap-6 ${index % 2 === 1 ? "md:flex-row-reverse" : ""
                                 }`}
                         >
                             {/* Circle Image Space */}
                             <div className="shrink-0 relative">
-                                <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-background shadow-xl overflow-hidden bg-muted">
+                                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-background shadow-xl overflow-hidden bg-muted">
                                     {leader.imageUrl ? (
                                         <img
                                             src={leader.imageUrl}
@@ -43,17 +43,17 @@ export default async function PublicLeadersPage() {
                                     )}
                                 </div>
                                 {/* Connector Line (Decorative) - Optional, adds to the flow */}
-                                <div className={`hidden md:block absolute top-1/2 w-12 h-1 bg-border -z-10 ${index % 2 === 1 ? 'right-full mr-[-2px]' : 'left-full ml-[-2px]'
+                                <div className={`hidden md:block absolute top-1/2 w-6 h-1 bg-border -z-10 ${index % 2 === 1 ? 'right-full mr-[-2px]' : 'left-full ml-[-2px]'
                                     }`}></div>
                             </div>
 
                             {/* Rectangle Info Card */}
-                            <div className="bg-card text-card-foreground rounded-2xl shadow-lg p-6 md:p-8 flex-1 w-full md:max-w-xl border relative overflow-hidden group hover:shadow-xl transition-shadow">
-                                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <img src="/logo-placeholder.png" alt="" className="w-24 h-24 object-contain" />
+                            <div className="bg-card text-card-foreground rounded-xl shadow-lg p-4 md:p-5 flex-1 w-full md:max-w-md border relative overflow-hidden group hover:shadow-xl transition-shadow">
+                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <img src="/logo-placeholder.png" alt="" className="w-16 h-16 object-contain" />
                                 </div>
                                 <div className="relative z-10">
-                                    <h3 className="text-2xl font-bold mb-2 text-primary">{leader.name}</h3>
+                                    <h3 className="text-lg font-bold mb-1 text-primary">{leader.name}</h3>
                                     <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 mb-4">
                                         {leader.role}
                                     </div>
