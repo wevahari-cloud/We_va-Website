@@ -210,6 +210,7 @@ export function EditEventForm({ initialData, eventId }: EditEventFormProps) {
                                             <SelectItem value="DPP">DPP</SelectItem>
                                             <SelectItem value="District Events">District Events</SelectItem>
                                             <SelectItem value="District Initiatives">District Initiatives</SelectItem>
+                                            <SelectItem value="Participation">Participation</SelectItem>
                                             <SelectItem value="Meetings">Meetings</SelectItem>
                                         </SelectContent>
                                     </Select>

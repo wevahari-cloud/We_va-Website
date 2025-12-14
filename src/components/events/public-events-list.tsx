@@ -76,6 +76,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
         "DPP",
         "District Events",
         "District Initiatives",
+        "Participation",
         "Meetings"
     ];
 

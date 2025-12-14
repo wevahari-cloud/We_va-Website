@@ -84,6 +84,7 @@ export default function AdminEventsPage() {
         "DPP",
         "District Events",
         "District Initiatives",
+        "Participation",
         "Meetings"
     ];
 
