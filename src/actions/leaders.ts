@@ -82,7 +82,7 @@ export async function reorderLeaders(updates: { id: number; order: number }[]) {
 export async function getPastYearsWithLeaders() {
     try {
         // Fetch years
-        const years = await db.select().from(pastYears).orderBy(desc(pastYears.order)); // newest years first usually
+        const years = await db.select().from(pastYears).orderBy(asc(pastYears.order)); // oldest years first
 
         // Fetch all past leaders
         const pLeaders = await db.select().from(pastLeaders);
