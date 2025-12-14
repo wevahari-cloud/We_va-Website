@@ -18,8 +18,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageUpload } from "@/components/admin/image-upload";
-import { db } from "@/lib/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -53,24 +51,33 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
     useEffect(() => {
         async function fetchEvent() {
             try {
-                const docRef = doc(db, "events", params.id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
+                // Ensure ID is parsed as integer
+                const eventId = parseInt(params.id);
+                if (isNaN(eventId)) {
+                    // Handle new/invalid ID if necessary
+                    return;
+                }
+
+                // Dynamically import/call server action (workaround if needed) or just call it:
+                const { getEvent } = await import("@/actions/events");
+                const data = await getEvent(eventId);
+
+                if (data) {
                     form.reset({
                         title: data.title,
                         date: data.date,
                         time: data.time || "",
-                        venue: data.venue,
-                        category: data.category,
+                        venue: data.venue || "",
+                        category: data.category || "",
                         description: data.description || "",
-                        posterUrl: data.posterUrl,
+                        posterUrl: data.posterUrl || "",
                     });
                 } else {
                     toast.error("Event not found");
                     router.push("/admin/events");
                 }
             } catch (error) {
+                console.error(error);
                 toast.error("Error fetching event");
             } finally {
                 setLoading(false);
@@ -82,11 +89,16 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true);
-            const docRef = doc(db, "events", params.id);
-            await updateDoc(docRef, values);
-            toast.success("Event updated successfully");
-            router.push("/admin/events");
-            router.refresh();
+            const { updateEvent } = await import("@/actions/events");
+            const result = await updateEvent(parseInt(params.id), values);
+
+            if (result.success) {
+                toast.success("Event updated successfully");
+                router.push("/admin/events");
+                router.refresh();
+            } else {
+                throw new Error("Update failed");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong");

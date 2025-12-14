@@ -46,3 +46,33 @@ export async function deleteEvent(id: number) {
         return { success: false, error: "Database delete failed" };
     }
 }
+
+export async function getEvent(id: number) {
+    try {
+        const result = await db.select().from(events).where(eq(events.id, id));
+        return result[0];
+    } catch (error) {
+        console.error("Failed to fetch event:", error);
+        return null;
+    }
+}
+
+export async function updateEvent(id: number, data: {
+    title: string;
+    description?: string;
+    date: string;
+    time?: string;
+    venue?: string;
+    category?: string;
+    posterUrl?: string;
+}) {
+    try {
+        await db.update(events).set(data).where(eq(events.id, id));
+        revalidatePath("/events");
+        revalidatePath("/admin/events");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to update event:", error);
+        return { success: false, error: "Database update failed" };
+    }
+}
