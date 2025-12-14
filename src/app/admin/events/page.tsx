@@ -170,26 +170,45 @@ export default function AdminEventsPage() {
                 {filteredEvents.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">No events found matching your filters.</div>
                 ) : filteredEvents.map(event => (
-                    <Card key={event.id} className="flex items-center justify-between p-3 hover:bg-muted/50 transition-colors">
-                        <div className="flex flex-col gap-1">
-                            <h3 className="font-semibold text-base leading-tight">
-                                {event.title}
-                            </h3>
-                            <div className="flex items-center text-sm text-muted-foreground">
-                                <CalendarIcon className="mr-2 h-3 w-3" />
+                    <Card key={event.id} className="p-4 hover:bg-muted/50 transition-colors">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                            {/* Title (Left) */}
+                            <div className="md:col-span-4">
+                                <h3 className="font-semibold text-lg leading-tight truncate" title={event.title}>
+                                    {event.title}
+                                </h3>
+                            </div>
+
+                            {/* Category (Center) */}
+                            <div className="md:col-span-3">
+                                <Badge variant="secondary" className="whitespace-nowrap">
+                                    {event.category}
+                                </Badge>
+                            </div>
+
+                            {/* Date (Center-Right) */}
+                            <div className="md:col-span-3 text-muted-foreground text-sm flex items-center">
+                                <CalendarIcon className="mr-2 h-4 w-4" />
                                 {event.date}
                             </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Badge variant="secondary" className="hidden sm:inline-flex whitespace-nowrap">
-                                {event.category}
-                            </Badge>
-                            <Link href={`/admin/events/${event.id}`}>
-                                <Button variant="ghost" size="sm">Edit</Button>
-                            </Link>
-                            <Button variant="destructive" size="icon" className="h-8 w-8" onClick={() => handleDelete(event.id)}>
-                                <Trash2 className="h-4 w-4" />
-                            </Button>
+
+                            {/* Actions (Right) */}
+                            <div className="md:col-span-2 flex items-center justify-end gap-2">
+                                <Link href={`/admin/events/${event.id}`}>
+                                    <Button variant="outline" size="sm" className="h-8">
+                                        Edit
+                                    </Button>
+                                </Link>
+                                <Button
+                                    variant="destructive"
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    onClick={() => handleDelete(event.id)}
+                                    title="Delete Event"
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                </Button>
+                            </div>
                         </div>
                     </Card>
                 ))}

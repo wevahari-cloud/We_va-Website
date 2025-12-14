@@ -29,6 +29,7 @@ export async function addEvent(data: {
         await db.insert(events).values(data);
         revalidatePath("/events");
         revalidatePath("/admin/events");
+        revalidatePath("/gallery");
         return { success: true };
     } catch (error) {
         console.error("Failed to add event:", error);
@@ -41,6 +42,7 @@ export async function deleteEvent(id: number) {
         await db.delete(events).where(eq(events.id, id));
         revalidatePath("/events");
         revalidatePath("/admin/events");
+        revalidatePath("/gallery");
         return { success: true };
     } catch (error) {
         console.error("Failed to delete event:", error);
@@ -72,6 +74,7 @@ export async function updateEvent(id: number, data: {
         await db.update(events).set(data).where(eq(events.id, id));
         revalidatePath("/events");
         revalidatePath("/admin/events");
+        revalidatePath("/gallery");
         return { success: true };
     } catch (error) {
         console.error("Failed to update event:", error);

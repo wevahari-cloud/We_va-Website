@@ -35,8 +35,11 @@ export async function getPublicGalleryImages() {
             .from(events)
             .orderBy(desc(events.createdAt));
 
-        // Filter events that have a posterUrl
-        const eventPosters = allEvents.filter(e => e.imageUrl && e.imageUrl.trim() !== "");
+        // Filter events that have a posterUrl OR additional images
+        const eventPosters = allEvents.filter(e =>
+            (e.imageUrl && e.imageUrl.trim() !== "") ||
+            (Array.isArray(e.images) && e.images.length > 0 && e.images.some((img: any) => typeof img === 'string' && img.trim() !== ""))
+        );
 
         // Transform event posters to match gallery structure and prevent ID collisions (if any)
         // Since we are just mapping them for display, we can use a composite ID or just rely on them being distinct enough for now
