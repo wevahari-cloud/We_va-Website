@@ -25,37 +25,32 @@ import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 
 function EventCard({ event, isPast = false }: { event: any, isPast?: boolean }) {
+    const href = isPast ? `/gallery?event=${event.id}` : "#";
+
     return (
-        <Card className="overflow-hidden group h-full flex flex-col hover:shadow-md transition-shadow">
-            <div className="relative h-32 overflow-hidden shrink-0">
-                <img
-                    src={event.posterUrl || "https://placehold.co/600x400/003366/FFF?text=Event"}
-                    alt={event.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <Badge className="absolute top-4 right-4 bg-white/90 text-black shadow-sm hover:bg-white/100">
-                    {event.category || "General"}
-                </Badge>
-            </div>
-            <CardHeader className="flex-1 p-2">
-                <CardTitle className="line-clamp-2 leading-tight mb-0.5 text-sm">{event.title}</CardTitle>
-                <div className="flex items-center text-muted-foreground text-[10px]">
-                    <Calendar className="h-3 w-3 mr-1" />
-                    {event.date}
+        <Link href={href} className="block h-full">
+            <Card className="overflow-hidden group h-full flex flex-col hover:shadow-md transition-shadow">
+                <div className="relative h-32 overflow-hidden shrink-0">
+                    <img
+                        src={event.posterUrl || "https://placehold.co/600x400/003366/FFF?text=Event"}
+                        alt={event.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <Badge className="absolute top-4 right-4 bg-white/90 text-black shadow-sm hover:bg-white/100">
+                        {event.category || "General"}
+                    </Badge>
                 </div>
-            </CardHeader>
-            <CardFooter className="mt-auto p-2 pt-0">
-                {isPast ? (
-                    <Button variant="outline" size="sm" className="w-full h-7 text-xs" asChild>
-                        <Link href={`/gallery?event=${event.id}`}>View Photos</Link>
-                    </Button>
-                ) : (
-                    <Button size="sm" className="w-full h-7 text-xs" asChild>
-                        <Link href="#">Register <ExternalLink className="ml-1 h-3 w-3" /></Link>
-                    </Button>
-                )}
-            </CardFooter>
-        </Card>
+                <CardHeader className="flex-1 p-2">
+                    <CardTitle className="line-clamp-2 leading-tight mb-0.5 text-sm group-hover:text-primary transition-colors">
+                        {event.title}
+                    </CardTitle>
+                    <div className="flex items-center text-muted-foreground text-[10px]">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {event.date}
+                    </div>
+                </CardHeader>
+            </Card>
+        </Link>
     )
 }
 
