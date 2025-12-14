@@ -261,6 +261,9 @@ export function PastLeadershipTab({ initialYears }: { initialYears: any[] }) {
                                 <ImageUpload value={leaderImage} onChange={setLeaderImage} onRemove={() => setLeaderImage("")} />
                             </div>
                         </div>
+                        <div className="bg-muted/50 p-3 rounded-md text-xs text-muted-foreground mb-4">
+                            <strong>Tip:</strong> Add the President first, followed by Secretaries. The first person added will be centered in the layout.
+                        </div>
                         <div className="grid gap-4">
                             <div className="grid gap-2">
                                 <Label>Name</Label>

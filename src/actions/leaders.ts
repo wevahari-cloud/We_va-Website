@@ -91,7 +91,7 @@ export async function getPastYearsWithLeaders() {
         const result = years.map(year => {
             const yearLeaders = pLeaders
                 .filter(l => l.yearId === year.id)
-                .sort((a, b) => (a.order || 0) - (b.order || 0));
+                .sort((a, b) => (a.order || 0) - (b.order || 0) || a.id - b.id);
             return {
                 ...year,
                 leaders: yearLeaders
