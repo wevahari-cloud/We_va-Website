@@ -62,6 +62,7 @@ export async function getPublicGalleryImages() {
                         category: evt.category,
                         createdAt: evt.createdAt,
                         type: "event",
+                        eventId: evt.id,
                     });
                 }
 
@@ -77,6 +78,7 @@ export async function getPublicGalleryImages() {
                                 category: evt.category,
                                 createdAt: evt.createdAt,
                                 type: "event",
+                                eventId: evt.id,
                             });
                         }
                     });

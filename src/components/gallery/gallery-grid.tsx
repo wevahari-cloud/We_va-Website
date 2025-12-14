@@ -14,7 +14,6 @@ import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 
 export function GalleryGrid({ images }: { images: any[] }) {
-    console.log("GalleryGrid received images:", images.length);
     if (images.length === 0) {
         return (
             <div className="text-center py-12 text-muted-foreground">
