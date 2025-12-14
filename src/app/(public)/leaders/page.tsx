@@ -87,9 +87,9 @@ export default async function PublicLeadersPage() {
                 </div>
             </section>
 
-            {/* Section 2: Past Presidents (Horizontal Scroll) */}
+            {/* Section 2: Past Leadership (Horizontal Scroll) */}
             <section className="border-t pt-16">
-                <h2 className="text-3xl font-bold text-center mb-12">Past Leadership</h2>
+                <h2 className="text-3xl font-bold text-center mb-12">Past Leadership Archives</h2>
 
                 <div className="relative w-full">
                     <div className="flex overflow-x-auto gap-8 pb-8 px-4 snap-x snap-mandatory no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
