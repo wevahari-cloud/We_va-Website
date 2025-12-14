@@ -14,7 +14,7 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
-import { uploadImage } from "@/actions/upload";
+import { getCloudinarySignature } from "@/actions/upload";
 
 interface ImageUploadProps {
     disabled?: boolean;
@@ -98,18 +98,38 @@ export function ImageUpload({
         try {
             setUploading(true);
 
-            // Create FormData
-            const formData = new FormData();
-            formData.append('file', blob, 'image.jpg');
+            // 1. Get Signature from Server
+            const { success, signature, timestamp, folder, cloudName, apiKey, error } = await getCloudinarySignature();
 
-            // Use server action for upload
-            const { success, url, error } = await uploadImage(formData);
-
-            if (!success || !url) {
-                throw new Error(error || 'Upload failed');
+            if (!success || !cloudName || !apiKey) {
+                throw new Error(error || 'Failed to get upload signature');
             }
 
-            onChange(url);
+            // 2. Prepare FormData
+            const formData = new FormData();
+            formData.append('file', blob);
+            formData.append('api_key', apiKey);
+            formData.append('timestamp', timestamp!.toString());
+            formData.append('signature', signature!);
+            if (folder) formData.append('folder', folder);
+
+            // 3. Upload Directly to Cloudinary
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error?.message || 'Upload failed');
+            }
+
+            // 4. Success
+            onChange(data.secure_url);
 
             // Reset state
             setImageSrc(null);

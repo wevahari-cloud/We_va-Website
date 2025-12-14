@@ -9,36 +9,29 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage(formData: FormData) {
+export async function getCloudinarySignature() {
     try {
-        const file = formData.get("file") as File;
-        if (!file) {
-            throw new Error("No file uploaded");
-        }
+        const timestamp = Math.round(new Date().getTime() / 1000);
+        const folder = "western_valley"; // Optional: keep organized
 
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
+        const signature = cloudinary.utils.api_sign_request(
+            {
+                timestamp,
+                folder,
+            },
+            process.env.CLOUDINARY_API_SECRET!
+        );
 
-        const result = await new Promise<any>((resolve, reject) => {
-            cloudinary.uploader.upload_stream(
-                {
-                    folder: "western_valley", // Upload folder
-                    resource_type: "image",
-                },
-                (error, result) => {
-                    if (error) {
-                        reject(error);
-                    } else {
-                        resolve(result);
-                    }
-                }
-            ).end(buffer);
-        });
-
-        return { success: true, url: result.secure_url };
+        return {
+            success: true,
+            signature,
+            timestamp,
+            folder,
+            cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+            apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || process.env.CLOUDINARY_API_KEY
+        };
     } catch (error) {
-        console.error("Upload error:", error);
-        const errorMessage = error instanceof Error ? error.message : "Unknown upload error";
-        return { success: false, error: errorMessage };
+        console.error("Signature generation error:", error);
+        return { success: false, error: "Failed to generate upload signature" };
     }
 }
