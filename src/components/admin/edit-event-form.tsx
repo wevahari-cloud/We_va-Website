@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
 import { ImageUpload } from "@/components/admin/image-upload";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -34,71 +33,34 @@ const formSchema = z.object({
     images: z.array(z.string()).optional(),
 });
 
-export default function EditEventPage({ params }: { params: { id: string } }) {
+interface EditEventFormProps {
+    initialData: any;
+    eventId: number;
+}
+
+export function EditEventForm({ initialData, eventId }: EditEventFormProps) {
     const router = useRouter();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    // Prepare initial images logic
+    const savedImages = (initialData.images as string[]) || [];
+    const posterUrl = initialData.posterUrl || "";
+    // Merge poster and images for the UI
+    const allImages = posterUrl ? [posterUrl, ...savedImages.filter(img => img !== posterUrl)] : savedImages;
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
-            date: "",
-            time: "",
-            venue: "",
-            category: "",
-            description: "",
-            posterUrl: "",
-            images: [],
+            title: initialData.title,
+            date: initialData.date,
+            time: initialData.time || "",
+            venue: initialData.venue || "",
+            category: initialData.category || "",
+            description: initialData.description || "",
+            posterUrl: posterUrl,
+            images: allImages,
         },
     });
-
-    useEffect(() => {
-        async function fetchEvent() {
-            try {
-                // Ensure ID is parsed as integer
-                const eventId = parseInt(params.id);
-                console.log("Checking edit page for ID:", params.id, "Parsed:", eventId);
-
-                if (isNaN(eventId)) {
-                    // Handle new/invalid ID if necessary
-                    console.error("Invalid event ID:", params.id);
-                    return;
-                }
-
-                // Dynamically import/call server action (workaround if needed) or just call it:
-                const { getEvent } = await import("@/actions/events");
-                const data = await getEvent(eventId);
-                console.log("Fetched event data:", data);
-
-                if (data) {
-                    const savedImages = (data.images as string[]) || [];
-                    const posterUrl = data.posterUrl || "";
-                    // Merge poster and images for the UI, avoiding duplicates if poster is already in images (legacy data)
-                    const allImages = posterUrl ? [posterUrl, ...savedImages.filter(img => img !== posterUrl)] : savedImages;
-
-                    form.reset({
-                        title: data.title,
-                        date: data.date,
-                        time: data.time || "",
-                        venue: data.venue || "",
-                        category: data.category || "",
-                        description: data.description || "",
-                        posterUrl: posterUrl,
-                        images: allImages,
-                    });
-                } else {
-                    toast.error("Event not found");
-                    router.push("/admin/events");
-                }
-            } catch (error) {
-                console.error(error);
-                toast.error("Error fetching event");
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchEvent();
-    }, [params.id, form, router]);
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -111,7 +73,7 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                 images: values.images?.filter(url => url !== values.posterUrl)
             };
 
-            const result = await updateEvent(parseInt(params.id), submissionData);
+            const result = await updateEvent(eventId, submissionData);
 
             if (result.success) {
                 toast.success("Event updated successfully");
@@ -127,8 +89,6 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
             setLoading(false);
         }
     };
-
-    if (loading) return <div>Loading...</div>;
 
     return (
         <div className="max-w-2xl mx-auto">
@@ -153,12 +113,10 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                                         disabled={loading}
                                         onChange={(urls) => {
                                             field.onChange(urls);
-                                            // Auto-select first image as poster if none selected or if current poster was removed
                                             const currentPoster = form.getValues("posterUrl");
                                             if (urls.length > 0 && (!currentPoster || !urls.includes(currentPoster))) {
                                                 form.setValue("posterUrl", urls[0]);
                                             }
-                                            // If no images, clear poster
                                             if (urls.length === 0) {
                                                 form.setValue("posterUrl", "");
                                             }
@@ -166,7 +124,6 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                                         onRemove={(url) => {
                                             const newUrls = field.value?.filter((val) => val !== url) || [];
                                             field.onChange(newUrls);
-                                            // Handle poster removal logic
                                             const currentPoster = form.getValues("posterUrl");
                                             if (currentPoster === url) {
                                                 form.setValue("posterUrl", newUrls.length > 0 ? newUrls[0] : "");
@@ -182,7 +139,6 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                         )}
                     />
 
-                    {/* Hidden field to validate posterUrl requirement */}
                     <FormField
                         control={form.control}
                         name="posterUrl"
