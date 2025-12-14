@@ -28,6 +28,7 @@ export async function getPublicGalleryImages() {
             id: events.id,
             title: events.title,
             imageUrl: events.posterUrl,
+            images: events.images,
             category: events.category,
             createdAt: events.createdAt,
         })
@@ -47,14 +48,39 @@ export async function getPublicGalleryImages() {
 
         const combinedImages = [
             ...galleryImages.map(img => ({ ...img, id: `gallery-${img.id}`, type: "gallery" })),
-            ...eventPosters.map(evt => ({
-                id: `event-${evt.id}`,
-                title: evt.title,
-                imageUrl: evt.imageUrl as string,
-                category: evt.category,
-                createdAt: evt.createdAt,
-                type: "event"
-            }))
+            ...eventPosters.flatMap(evt => {
+                const items = [];
+                // Add poster
+                if (evt.imageUrl) {
+                    items.push({
+                        id: `event-${evt.id}-poster`,
+                        title: evt.title,
+                        imageUrl: evt.imageUrl as string,
+                        category: evt.category,
+                        createdAt: evt.createdAt,
+                        type: "event",
+                    });
+                }
+
+                // Add additional images
+                // Ensure images is an array of strings
+                if (Array.isArray(evt.images)) {
+                    (evt.images as string[]).forEach((imgUrl, index) => {
+                        if (typeof imgUrl === 'string' && imgUrl.trim() !== "") {
+                            items.push({
+                                id: `event-${evt.id}-extra-${index}`,
+                                title: `${evt.title} - Photo ${index + 1}`,
+                                imageUrl: imgUrl,
+                                category: evt.category,
+                                createdAt: evt.createdAt,
+                                type: "event",
+                            });
+                        }
+                    });
+                }
+
+                return items;
+            })
         ];
 
         // Sort combined list by createdAt desc

@@ -21,6 +21,7 @@ import { ImageUpload } from "@/components/admin/image-upload";
 import { addEvent } from "@/actions/events";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { MultiImageUpload } from "@/components/admin/multi-image-upload";
 
 const formSchema = z.object({
     title: z.string().min(2, "Title is required"),
@@ -30,6 +31,7 @@ const formSchema = z.object({
     category: z.string().min(1, "Category is required"),
     description: z.string().optional(),
     posterUrl: z.string().min(1, "Poster image is required"),
+    images: z.array(z.string()).optional(),
 });
 
 export default function NewEventPage() {
@@ -46,6 +48,7 @@ export default function NewEventPage() {
             category: "",
             description: "",
             posterUrl: "",
+            images: [],
         },
     });
 
@@ -86,7 +89,7 @@ export default function NewEventPage() {
                         name="posterUrl"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Event Poster</FormLabel>
+                                <FormLabel>Event Poster (Main Image)</FormLabel>
                                 <FormControl>
                                     <ImageUpload
                                         value={field.value}
@@ -95,6 +98,29 @@ export default function NewEventPage() {
                                         onRemove={() => field.onChange("")}
                                         aspectRatio={3 / 4}
                                         aspectRatioLabel="3:4 Portrait (Event Poster)"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="images"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Additional Images (Max 5)</FormLabel>
+                                <div className="text-sm text-muted-foreground mb-4">
+                                    These photos will be automatically added to the Gallery.
+                                </div>
+                                <FormControl>
+                                    <MultiImageUpload
+                                        value={field.value || []}
+                                        disabled={loading}
+                                        onChange={(urls) => field.onChange(urls)}
+                                        onRemove={(url) => field.onChange(field.value?.filter((val) => val !== url))}
+                                        maxFiles={5}
                                     />
                                 </FormControl>
                                 <FormMessage />

@@ -21,6 +21,7 @@ export const events = pgTable("events", {
     venue: text("venue"),
     category: text("category"),
     posterUrl: text("poster_url"),
+    images: jsonb("images").$type<string[]>(), // Array of image URLs
     createdAt: timestamp("created_at").defaultNow(),
 });
 

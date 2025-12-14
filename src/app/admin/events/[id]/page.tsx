@@ -17,9 +17,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import { ImageUpload } from "@/components/admin/image-upload";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { MultiImageUpload } from "@/components/admin/multi-image-upload";
 
 const formSchema = z.object({
     title: z.string().min(2, "Title is required"),
@@ -29,6 +31,7 @@ const formSchema = z.object({
     category: z.string().min(1, "Category is required"),
     description: z.string().optional(),
     posterUrl: z.string().min(1, "Poster image is required"),
+    images: z.array(z.string()).optional(),
 });
 
 export default function EditEventPage({ params }: { params: { id: string } }) {
@@ -45,6 +48,7 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
             category: "",
             description: "",
             posterUrl: "",
+            images: [],
         },
     });
 
@@ -71,6 +75,7 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                         category: data.category || "",
                         description: data.description || "",
                         posterUrl: data.posterUrl || "",
+                        images: (data.images as string[]) || [], // Correctly cast JSONB type
                     });
                 } else {
                     toast.error("Event not found");
@@ -122,13 +127,36 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
                         name="posterUrl"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Event Poster</FormLabel>
+                                <FormLabel>Event Poster (Main)</FormLabel>
                                 <FormControl>
                                     <ImageUpload
                                         value={field.value}
                                         disabled={loading}
                                         onChange={(url) => field.onChange(url)}
                                         onRemove={() => field.onChange("")}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="images"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Additional Images (Max 5)</FormLabel>
+                                <div className="text-sm text-muted-foreground mb-4">
+                                    These photos will be automatically added to the Gallery.
+                                </div>
+                                <FormControl>
+                                    <MultiImageUpload
+                                        value={field.value || []}
+                                        disabled={loading}
+                                        onChange={(urls) => field.onChange(urls)}
+                                        onRemove={(url) => field.onChange(field.value?.filter((val) => val !== url))}
+                                        maxFiles={5}
                                     />
                                 </FormControl>
                                 <FormMessage />

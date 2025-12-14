@@ -23,6 +23,7 @@ export async function addEvent(data: {
     venue?: string;
     category?: string;
     posterUrl?: string;
+    images?: string[];
 }) {
     try {
         await db.insert(events).values(data);
@@ -65,6 +66,7 @@ export async function updateEvent(id: number, data: {
     venue?: string;
     category?: string;
     posterUrl?: string;
+    images?: string[];
 }) {
     try {
         await db.update(events).set(data).where(eq(events.id, id));
