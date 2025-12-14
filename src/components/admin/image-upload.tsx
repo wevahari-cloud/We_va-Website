@@ -14,6 +14,7 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
+import { uploadImage } from "@/actions/upload";
 
 interface ImageUploadProps {
     disabled?: boolean;
@@ -97,30 +98,18 @@ export function ImageUpload({
         try {
             setUploading(true);
 
-            // Upload to Cloudinary using unsigned upload
+            // Create FormData
             const formData = new FormData();
             formData.append('file', blob, 'image.jpg');
-            formData.append('upload_preset', 'western_valley');
 
-            const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'demo';
+            // Use server action for upload
+            const { success, url, error } = await uploadImage(formData);
 
-            const response = await fetch(
-                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-                {
-                    method: 'POST',
-                    body: formData,
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error('Upload failed');
+            if (!success || !url) {
+                throw new Error(error || 'Upload failed');
             }
 
-            const data = await response.json();
-
-            if (data.secure_url) {
-                onChange(data.secure_url);
-            }
+            onChange(url);
 
             // Reset state
             setImageSrc(null);
