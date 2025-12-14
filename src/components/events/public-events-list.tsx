@@ -191,7 +191,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
                 </div>
 
                 <TabsContent value="upcoming" className="animate-in fade-in-50 duration-500">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {upcomingEvents.map((event: any) => (
                             <EventCard key={event.id} event={event} />
                         ))}
@@ -204,7 +204,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
                     )}
                 </TabsContent>
                 <TabsContent value="past" className="animate-in fade-in-50 duration-500">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
                         {pastEvents.map((event: any) => (
                             <EventCard key={event.id} event={event} isPast />
                         ))}
