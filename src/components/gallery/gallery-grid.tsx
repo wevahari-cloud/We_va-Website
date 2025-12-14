@@ -50,25 +50,38 @@ export function GalleryGrid({ images }: { images: any[] }) {
     }));
 
     return (
-        <LightGallery
-            speed={500}
-            plugins={[lgThumbnail, lgZoom]}
-            elementClassNames="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-        >
-            {galleryItems.map((image) => (
-                <a
-                    key={image.id}
-                    href={image.src}
-                    data-sub-html={image.subHtml}
-                    className="block aspect-square overflow-hidden rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
-                >
-                    <img
-                        src={image.thumb}
-                        alt={image.subHtml}
-                        className="w-full h-full object-cover"
-                    />
-                </a>
-            ))}
-        </LightGallery>
+        <div>
+            {eventId && (
+                <div className="mb-6 flex items-center justify-between">
+                    <Button variant="outline" onClick={() => window.location.href = "/events"}>
+                        ← Back to Events
+                    </Button>
+                    <div className="text-muted-foreground">
+                        Showing photos for selected event
+                    </div>
+                </div>
+            )}
+
+            <LightGallery
+                speed={500}
+                plugins={[lgThumbnail, lgZoom]}
+                elementClassNames="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2"
+            >
+                {galleryItems.map((image) => (
+                    <a
+                        key={image.id}
+                        href={image.src}
+                        data-sub-html={image.subHtml}
+                        className="block aspect-square overflow-hidden rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
+                    >
+                        <img
+                            src={image.thumb}
+                            alt={image.subHtml}
+                            className="w-full h-full object-cover"
+                        />
+                    </a>
+                ))}
+            </LightGallery>
+        </div>
     );
 }
