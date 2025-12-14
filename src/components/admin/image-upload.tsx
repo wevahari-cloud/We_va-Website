@@ -45,6 +45,40 @@ export function ImageUpload({
         setIsMounted(true);
     }, []);
 
+    // Handle global paste events for images
+    useEffect(() => {
+        const handlePaste = async (e: ClipboardEvent) => {
+            // If the dialog is already open or uploading, we might want to ignore? 
+            // Or maybe replace the current image? Let's assume replace if not uploading.
+            if (uploading || disabled) return;
+
+            if (e.clipboardData && e.clipboardData.items) {
+                const items = e.clipboardData.items;
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i].type.indexOf("image") !== -1) {
+                        // Found an image in clipboard
+                        e.preventDefault();
+                        const file = items[i].getAsFile();
+                        if (file) {
+                            setSelectedFile(file);
+                            const imageDataUrl = await readFile(file);
+                            setImageSrc(imageDataUrl);
+                            setIsDialogOpen(true);
+                        }
+                        return; // Only process the first image found
+                    }
+                }
+            }
+        };
+
+        // Only add listener if not disabled? or general. 
+        // Adding globally means it works anywhere on the page which satisfies "snip and ... page should accept"
+        document.addEventListener("paste", handlePaste);
+        return () => {
+            document.removeEventListener("paste", handlePaste);
+        };
+    }, [uploading, disabled]); // Re-bind if uploading/disabled state changes
+
     const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
