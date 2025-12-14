@@ -1,0 +1,80 @@
+{
+  "node": {
+    "00486a57e5f43d93b55218b61483e00dd113511c1c": {
+      "workers": {
+        "app/admin/events/[id]/page": {
+          "moduleId": 44159,
+          "async": false,
+          "exportedName": "getEvents",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/[id]/page": "action-browser"
+      },
+      "exportedName": "getEvents",
+      "filename": "src/actions/events.ts"
+    },
+    "4061b21cf8ed078670bc8696095231bee6cab6cdf0": {
+      "workers": {
+        "app/admin/events/[id]/page": {
+          "moduleId": 44159,
+          "async": false,
+          "exportedName": "addEvent",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/[id]/page": "action-browser"
+      },
+      "exportedName": "addEvent",
+      "filename": "src/actions/events.ts"
+    },
+    "40142c92f23600d87e313d4906d006b815904d3584": {
+      "workers": {
+        "app/admin/events/[id]/page": {
+          "moduleId": 44159,
+          "async": false,
+          "exportedName": "deleteEvent",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/[id]/page": "action-browser"
+      },
+      "exportedName": "deleteEvent",
+      "filename": "src/actions/events.ts"
+    },
+    "404170cce087fcaeaafd4f7c3038e41acafa92fb40": {
+      "workers": {
+        "app/admin/events/[id]/page": {
+          "moduleId": 44159,
+          "async": false,
+          "exportedName": "getEvent",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/[id]/page": "action-browser"
+      },
+      "exportedName": "getEvent",
+      "filename": "src/actions/events.ts"
+    },
+    "60835605c79eb40d971fd805d4b5d8e49a37980fe1": {
+      "workers": {
+        "app/admin/events/[id]/page": {
+          "moduleId": 44159,
+          "async": false,
+          "exportedName": "updateEvent",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/[id]/page": "action-browser"
+      },
+      "exportedName": "updateEvent",
+      "filename": "src/actions/events.ts"
+    }
+  },
+  "edge": {}
+}

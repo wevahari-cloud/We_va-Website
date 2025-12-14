@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, boolean, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, boolean, jsonb, integer } from "drizzle-orm/pg-core";
 
 // Team Members
 export const team = pgTable("team", {
@@ -51,4 +51,37 @@ export const content = pgTable("content", {
     key: text("key").primaryKey(), // e.g. 'home', 'about', 'contact'
     data: jsonb("data").notNull(),
     updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Leaders (Current Board)
+export const leaders = pgTable("leaders", {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    role: text("role").notNull(),
+    imageUrl: text("image_url"),
+    order: integer("order"), // Changed to integer
+    linkedinUrl: text("linkedin_url"),
+    email: text("email"),
+    createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Past Years (Theme & Logo metadata for each year)
+export const pastYears = pgTable("past_years", {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    themeTitle: text("theme_title"),
+    themeLogoUrl: text("theme_logo_url"),
+    order: integer("order"), // Changed to integer
+    createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Past Leaders (Linked to a Year)
+export const pastLeaders = pgTable("past_leaders", {
+    id: serial("id").primaryKey(),
+    yearId: integer("year_id").notNull(), // Changed to integer
+    name: text("name").notNull(),
+    role: text("role").notNull(),
+    imageUrl: text("image_url"),
+    order: integer("order"), // Changed to integer
+    createdAt: timestamp("created_at").defaultNow(),
 });

@@ -1,0 +1,50 @@
+{
+  "node": {
+    "007eeb705fa133139ab4d1ef75a4b428c84c895931": {
+      "workers": {
+        "app/(public)/team/page": {
+          "moduleId": 65861,
+          "async": false,
+          "exportedName": "getTeamMembers",
+          "filename": "src/actions/team.ts"
+        }
+      },
+      "layer": {
+        "app/(public)/team/page": "rsc"
+      },
+      "exportedName": "getTeamMembers",
+      "filename": "src/actions/team.ts"
+    },
+    "40ba8d215f6ecc49966469fb08518ce1749033be6d": {
+      "workers": {
+        "app/(public)/team/page": {
+          "moduleId": 65861,
+          "async": false,
+          "exportedName": "addTeamMember",
+          "filename": "src/actions/team.ts"
+        }
+      },
+      "layer": {
+        "app/(public)/team/page": "rsc"
+      },
+      "exportedName": "addTeamMember",
+      "filename": "src/actions/team.ts"
+    },
+    "40f6a8ef5c29997498969f28ac2163738d1199f7f7": {
+      "workers": {
+        "app/(public)/team/page": {
+          "moduleId": 65861,
+          "async": false,
+          "exportedName": "deleteTeamMember",
+          "filename": "src/actions/team.ts"
+        }
+      },
+      "layer": {
+        "app/(public)/team/page": "rsc"
+      },
+      "exportedName": "deleteTeamMember",
+      "filename": "src/actions/team.ts"
+    }
+  },
+  "edge": {}
+}

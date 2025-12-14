@@ -1,0 +1,20 @@
+{
+  "node": {
+    "4061b21cf8ed078670bc8696095231bee6cab6cdf0": {
+      "workers": {
+        "app/admin/events/new/page": {
+          "moduleId": 53364,
+          "async": false,
+          "exportedName": "addEvent",
+          "filename": "src/actions/events.ts"
+        }
+      },
+      "layer": {
+        "app/admin/events/new/page": "action-browser"
+      },
+      "exportedName": "addEvent",
+      "filename": "src/actions/events.ts"
+    }
+  },
+  "edge": {}
+}
