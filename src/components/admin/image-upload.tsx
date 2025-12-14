@@ -38,6 +38,7 @@ export function ImageUpload({
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
@@ -51,29 +52,22 @@ export function ImageUpload({
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
+            setSelectedFile(file);
             const imageDataUrl = await readFile(file);
             setImageSrc(imageDataUrl);
             setIsDialogOpen(true);
         }
     };
 
-    const handleCropConfirm = async () => {
-        if (!imageSrc || !croppedAreaPixels) return;
-
+    const handleUpload = async (blob: Blob) => {
         try {
             setUploading(true);
 
-            // Get the cropped image blob
-            const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
-
             // Upload to Cloudinary using unsigned upload
-            // Note: This requires an unsigned upload preset named 'western_valley'
-            // to be created in your Cloudinary dashboard
             const formData = new FormData();
-            formData.append('file', croppedBlob, 'cropped-image.jpg');
+            formData.append('file', blob, 'image.jpg');
             formData.append('upload_preset', 'western_valley');
 
-            // Cloudinary cloud name - update this with your actual cloud name
             const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'demo';
 
             const response = await fetch(
@@ -96,6 +90,7 @@ export function ImageUpload({
 
             // Reset state
             setImageSrc(null);
+            setSelectedFile(null);
             setIsDialogOpen(false);
             setCrop({ x: 0, y: 0 });
             setZoom(1);
@@ -105,10 +100,22 @@ export function ImageUpload({
         } finally {
             setUploading(false);
         }
+    }
+
+    const handleCropConfirm = async () => {
+        if (!imageSrc || !croppedAreaPixels) return;
+        const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels);
+        await handleUpload(croppedBlob);
+    };
+
+    const handleUploadOriginal = async () => {
+        if (!selectedFile) return;
+        await handleUpload(selectedFile);
     };
 
     const handleCancel = () => {
         setImageSrc(null);
+        setSelectedFile(null);
         setIsDialogOpen(false);
         setCrop({ x: 0, y: 0 });
         setZoom(1);
@@ -192,24 +199,35 @@ export function ImageUpload({
                         </div>
                     </div>
 
-                    <DialogFooter>
+                    <DialogFooter className="sm:justify-between">
                         <Button
                             type="button"
-                            variant="outline"
-                            onClick={handleCancel}
+                            variant="secondary"
+                            onClick={handleUploadOriginal}
                             disabled={uploading}
                         >
-                            <X className="h-4 w-4 mr-2" />
-                            Cancel
+                            Upload Original (No Crop)
                         </Button>
-                        <Button
-                            type="button"
-                            onClick={handleCropConfirm}
-                            disabled={uploading}
-                        >
-                            <Crop className="h-4 w-4 mr-2" />
-                            {uploading ? 'Uploading...' : 'Crop & Upload'}
-                        </Button>
+
+                        <div className="flex gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={handleCancel}
+                                disabled={uploading}
+                            >
+                                <X className="h-4 w-4 mr-2" />
+                                Cancel
+                            </Button>
+                            <Button
+                                type="button"
+                                onClick={handleCropConfirm}
+                                disabled={uploading}
+                            >
+                                <Crop className="h-4 w-4 mr-2" />
+                                {uploading ? 'Uploading...' : 'Crop & Upload'}
+                            </Button>
+                        </div>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
