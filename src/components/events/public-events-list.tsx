@@ -37,20 +37,20 @@ function EventCard({ event, isPast = false }: { event: any, isPast?: boolean }) 
                     {event.category || "General"}
                 </Badge>
             </div>
-            <CardHeader className="flex-1 p-3">
-                <CardTitle className="line-clamp-2 leading-tight mb-1 text-sm">{event.title}</CardTitle>
-                <div className="flex items-center text-muted-foreground text-xs">
+            <CardHeader className="flex-1 p-2">
+                <CardTitle className="line-clamp-2 leading-tight mb-0.5 text-sm">{event.title}</CardTitle>
+                <div className="flex items-center text-muted-foreground text-[10px]">
                     <Calendar className="h-3 w-3 mr-1" />
                     {event.date}
                 </div>
             </CardHeader>
-            <CardFooter className="mt-auto p-3 pt-0">
+            <CardFooter className="mt-auto p-2 pt-0">
                 {isPast ? (
-                    <Button variant="outline" size="sm" className="w-full h-8 text-xs" asChild>
+                    <Button variant="outline" size="sm" className="w-full h-7 text-xs" asChild>
                         <Link href={`/gallery?event=${event.id}`}>View Photos</Link>
                     </Button>
                 ) : (
-                    <Button size="sm" className="w-full h-8 text-xs" asChild>
+                    <Button size="sm" className="w-full h-7 text-xs" asChild>
                         <Link href="#">Register <ExternalLink className="ml-1 h-3 w-3" /></Link>
                     </Button>
                 )}
