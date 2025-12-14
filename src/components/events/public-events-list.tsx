@@ -26,8 +26,8 @@ import { cn } from "@/lib/utils";
 
 function EventCard({ event, isPast = false }: { event: any, isPast?: boolean }) {
     return (
-        <Card className="overflow-hidden group h-full flex flex-col">
-            <div className="relative h-48 overflow-hidden shrink-0">
+        <Card className="overflow-hidden group h-full flex flex-col hover:shadow-md transition-shadow">
+            <div className="relative h-32 overflow-hidden shrink-0">
                 <img
                     src={event.posterUrl || "https://placehold.co/600x400/003366/FFF?text=Event"}
                     alt={event.title}
@@ -37,22 +37,21 @@ function EventCard({ event, isPast = false }: { event: any, isPast?: boolean }) 
                     {event.category || "General"}
                 </Badge>
             </div>
-            <CardHeader className="flex-1">
-                <CardTitle className="line-clamp-2 leading-tight mb-2">{event.title}</CardTitle>
-                <div className="flex items-center text-muted-foreground text-sm">
-                    <Calendar className="h-4 w-4 mr-2" />
+            <CardHeader className="flex-1 p-3">
+                <CardTitle className="line-clamp-2 leading-tight mb-1 text-sm">{event.title}</CardTitle>
+                <div className="flex items-center text-muted-foreground text-xs">
+                    <Calendar className="h-3 w-3 mr-1" />
                     {event.date}
-                    {event.time && <span> • {event.time}</span>}
                 </div>
             </CardHeader>
-            <CardFooter className="mt-auto">
+            <CardFooter className="mt-auto p-3 pt-0">
                 {isPast ? (
-                    <Button variant="outline" className="w-full" asChild>
+                    <Button variant="outline" size="sm" className="w-full h-8 text-xs" asChild>
                         <Link href={`/gallery?event=${event.id}`}>View Photos</Link>
                     </Button>
                 ) : (
-                    <Button className="w-full" asChild>
-                        <Link href="#">Register Now <ExternalLink className="ml-2 h-4 w-4" /></Link>
+                    <Button size="sm" className="w-full h-8 text-xs" asChild>
+                        <Link href="#">Register <ExternalLink className="ml-1 h-3 w-3" /></Link>
                     </Button>
                 )}
             </CardFooter>
@@ -191,7 +190,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
                 </div>
 
                 <TabsContent value="upcoming" className="animate-in fade-in-50 duration-500">
-                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-3">
                         {upcomingEvents.map((event: any) => (
                             <EventCard key={event.id} event={event} />
                         ))}
@@ -204,7 +203,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
                     )}
                 </TabsContent>
                 <TabsContent value="past" className="animate-in fade-in-50 duration-500">
-                    <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-3">
                         {pastEvents.map((event: any) => (
                             <EventCard key={event.id} event={event} isPast />
                         ))}
