@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 const NAV_ITEMS = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "History", href: "/history" },
     { label: "Leaders", href: "/team" }, // Shortened for UI, can be "Presidents & Secretaries"
     { label: "Events", href: "/events" },
     { label: "Gallery", href: "/gallery" },
