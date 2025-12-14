@@ -26,7 +26,7 @@ const formSchema = z.object({
     title: z.string().min(2, "Title is required"),
     date: z.string().min(1, "Date is required"), // YYYY-MM-DD
     time: z.string().optional(),
-    venue: z.string().min(2, "Venue is required"),
+    venue: z.string().optional(),
     category: z.string().min(1, "Category is required"),
     description: z.string().optional(),
     posterUrl: z.string().min(1, "Poster image is required"),
@@ -138,6 +138,10 @@ export default function NewEventPage() {
                                             <SelectItem value="Community Service">Community Service</SelectItem>
                                             <SelectItem value="Professional Service">Professional Service</SelectItem>
                                             <SelectItem value="International Service">International Service</SelectItem>
+                                            <SelectItem value="DPP">DPP</SelectItem>
+                                            <SelectItem value="District Events">District Events</SelectItem>
+                                            <SelectItem value="District Initiatives">District Initiatives</SelectItem>
+                                            <SelectItem value="Meetings">Meetings</SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
@@ -180,7 +184,7 @@ export default function NewEventPage() {
                         name="venue"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Venue</FormLabel>
+                                <FormLabel>Venue (Optional)</FormLabel>
                                 <FormControl>
                                     <Input disabled={loading} placeholder="Location" {...field} />
                                 </FormControl>
