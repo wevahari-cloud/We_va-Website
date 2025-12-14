@@ -238,7 +238,7 @@ export function PastLeadershipTab({ initialYears }: { initialYears: any[] }) {
                             <div className="grid gap-2">
                                 <Label>Theme Logo</Label>
                                 <div className="w-32 mx-auto">
-                                    <ImageUpload value={themeLogo} onChange={setThemeLogo} />
+                                    <ImageUpload value={themeLogo} onChange={setThemeLogo} onRemove={() => setThemeLogo("")} />
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@ export function PastLeadershipTab({ initialYears }: { initialYears: any[] }) {
                     <form onSubmit={handleLeaderSubmit} className="space-y-4 py-4">
                         <div className="flex justify-center mb-4">
                             <div className="w-24">
-                                <ImageUpload value={leaderImage} onChange={setLeaderImage} />
+                                <ImageUpload value={leaderImage} onChange={setLeaderImage} onRemove={() => setLeaderImage("")} />
                             </div>
                         </div>
                         <div className="grid gap-4">

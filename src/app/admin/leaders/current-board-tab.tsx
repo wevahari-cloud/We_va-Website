@@ -174,6 +174,7 @@ export function CurrentBoardTab({ initialLeaders }: { initialLeaders: any[] }) {
                                 <ImageUpload
                                     value={imageUrl}
                                     onChange={setImageUrl}
+                                    onRemove={() => setImageUrl("")}
                                     disabled={isLoading}
                                 />
                             </div>
