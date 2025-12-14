@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,6 +61,29 @@ export function EditEventForm({ initialData, eventId }: EditEventFormProps) {
             images: allImages,
         },
     });
+
+    // Debug: Check what data is arriving
+    console.log("EditEventForm rendered with initialData:", initialData);
+
+    useEffect(() => {
+        if (initialData) {
+            const currentSavedImages = (initialData.images as string[]) || [];
+            const currentPosterUrl = initialData.posterUrl || "";
+            const currentAllImages = currentPosterUrl ? [currentPosterUrl, ...currentSavedImages.filter(img => img !== currentPosterUrl)] : currentSavedImages;
+
+            console.log("Resetting form with:", initialData.title);
+            form.reset({
+                title: initialData.title,
+                date: initialData.date,
+                time: initialData.time || "",
+                venue: initialData.venue || "",
+                category: initialData.category || "",
+                description: initialData.description || "",
+                posterUrl: currentPosterUrl,
+                images: currentAllImages,
+            });
+        }
+    }, [initialData, form]);
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
