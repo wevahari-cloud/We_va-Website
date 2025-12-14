@@ -119,7 +119,8 @@ export function ImageUpload({
             setZoom(1);
         } catch (error) {
             console.error('Error uploading image:', error);
-            alert('Failed to upload image. Please try again.');
+            const errorMessage = error instanceof Error ? error.message : 'Failed to upload image';
+            alert(`Upload failed: ${errorMessage}`);
         } finally {
             setUploading(false);
         }
