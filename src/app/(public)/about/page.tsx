@@ -49,7 +49,7 @@ export default function AboutPage() {
             {/* Avenues of Service */}
             <div className="mb-20">
                 <h2 className="text-3xl font-bold text-center mb-12">Avenues of Service</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
                     {[
                         "Club Service",
                         "Community Service",
@@ -57,7 +57,10 @@ export default function AboutPage() {
                         "International Service",
                         "District Priority Project 'DREAM'",
                     ].map((avenue, idx) => (
-                        <div key={idx} className="flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                        <div
+                            key={idx}
+                            className={`flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center w-full md:w-[calc(25%-1.5rem)] min-w-[250px]`}
+                        >
                             <Heart className="h-10 w-10 text-primary mb-4" />
                             <h3 className="font-bold text-lg">{avenue}</h3>
                         </div>
