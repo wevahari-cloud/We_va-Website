@@ -1,7 +1,12 @@
+import { Suspense } from "react";
 import { GalleryGrid } from "@/components/gallery/gallery-grid";
 import { getPublicGalleryImages } from "@/actions/gallery";
 
-export default async function GalleryPage() {
+export default async function GalleryPage({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined };
+}) {
     const images = await getPublicGalleryImages();
 
     return (
@@ -12,7 +17,9 @@ export default async function GalleryPage() {
                     Capturing moments of service, fellowship, and impact.
                 </p>
             </div>
-            <GalleryGrid images={images} />
+            <Suspense fallback={<div className="text-center py-12">Loading gallery...</div>}>
+                <GalleryGrid images={images} />
+            </Suspense>
         </div>
     );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import LightGallery from "lightgallery/react";
 
 // import styles
@@ -12,6 +14,7 @@ import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 
 export function GalleryGrid({ images }: { images: any[] }) {
+    console.log("GalleryGrid received images:", images.length);
     if (images.length === 0) {
         return (
             <div className="text-center py-12 text-muted-foreground">
@@ -20,7 +23,27 @@ export function GalleryGrid({ images }: { images: any[] }) {
         );
     }
 
-    const galleryItems = images.map(img => ({
+    const searchParams = useSearchParams();
+    const eventId = searchParams.get("event");
+
+    const filteredImages = eventId
+        ? images.filter(img => img.eventId === parseInt(eventId))
+        : images;
+
+    if (filteredImages.length === 0) {
+        return (
+            <div className="text-center py-12 text-muted-foreground">
+                <p>No photos found for this selection.</p>
+                {eventId && (
+                    <Button variant="link" onClick={() => window.location.href = "/gallery"}>
+                        View all photos
+                    </Button>
+                )}
+            </div>
+        );
+    }
+
+    const galleryItems = filteredImages.map(img => ({
         ...img,
         src: img.imageUrl,
         thumb: img.imageUrl,
