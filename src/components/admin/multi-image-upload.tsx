@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash, X } from "lucide-react";
 import { ImageUpload } from "@/components/admin/image-upload";
 
+import { Star } from "lucide-react";
+
 interface MultiImageUploadProps {
     disabled?: boolean;
     onChange: (value: string[]) => void;
     onRemove: (value: string) => void;
     value: string[];
+    mainImage?: string;
+    onSetMain?: (value: string) => void;
     maxFiles?: number;
 }
 
@@ -17,8 +21,10 @@ export function MultiImageUpload({
     disabled,
     onChange,
     onRemove,
-    value = [], // Default to empty array if undefined
-    maxFiles = 5
+    value = [],
+    mainImage,
+    onSetMain,
+    maxFiles = 6
 }: MultiImageUploadProps) {
     const [isMounted, setIsMounted] = useState(false);
 
@@ -38,13 +44,30 @@ export function MultiImageUpload({
         <div>
             <div className="mb-4 flex items-center gap-4 flex-wrap">
                 {value.map((url) => (
-                    <div key={url} className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
-                        <div className="z-10 absolute top-2 right-2">
-                            <Button type="button" onClick={() => onRemove(url)} variant="destructive" size="icon">
+                    <div key={url} className={`relative w-[200px] h-[200px] rounded-md overflow-hidden border-2 ${mainImage === url ? "border-primary" : "border-transparent"}`}>
+                        <div className="z-10 absolute top-2 right-2 flex gap-2">
+                            {onSetMain && (
+                                <Button
+                                    type="button"
+                                    onClick={() => onSetMain(url)}
+                                    variant={mainImage === url ? "default" : "secondary"}
+                                    size="icon"
+                                    className="h-8 w-8"
+                                    title="Set as Main Poster"
+                                >
+                                    <Star className={`h-4 w-4 ${mainImage === url ? "fill-current" : ""}`} />
+                                </Button>
+                            )}
+                            <Button type="button" onClick={() => onRemove(url)} variant="destructive" size="icon" className="h-8 w-8">
                                 <Trash className="h-4 w-4" />
                             </Button>
                         </div>
                         <img className="object-cover w-full h-full" alt="Image" src={url} />
+                        {mainImage === url && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-primary/80 text-primary-foreground text-xs font-bold text-center py-1">
+                                Main Poster
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

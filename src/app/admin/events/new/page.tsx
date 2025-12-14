@@ -56,7 +56,13 @@ export default function NewEventPage() {
         try {
             setLoading(true);
 
-            const result = await addEvent(values);
+            // Filter posterUrl out of images to avoid duplication in DB/Gallery
+            const submissionData = {
+                ...values,
+                images: values.images?.filter(url => url !== values.posterUrl)
+            };
+
+            const result = await addEvent(submissionData);
             if (!result.success) {
                 throw new Error(result.error || "Failed to add event");
             }
@@ -86,18 +92,41 @@ export default function NewEventPage() {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
-                        name="posterUrl"
+                        name="images"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Event Poster (Main Image)</FormLabel>
+                                <FormLabel>Event Images (Max 6)</FormLabel>
+                                <div className="text-sm text-muted-foreground mb-4">
+                                    Upload images and click the Star icon to set the Main Poster.
+                                </div>
                                 <FormControl>
-                                    <ImageUpload
-                                        value={field.value}
+                                    <MultiImageUpload
+                                        value={field.value || []}
                                         disabled={loading}
-                                        onChange={(url) => field.onChange(url)}
-                                        onRemove={() => field.onChange("")}
-                                        aspectRatio={3 / 4}
-                                        aspectRatioLabel="3:4 Portrait (Event Poster)"
+                                        onChange={(urls) => {
+                                            field.onChange(urls);
+                                            // Auto-select first image as poster if none selected or if current poster was removed
+                                            const currentPoster = form.getValues("posterUrl");
+                                            if (urls.length > 0 && (!currentPoster || !urls.includes(currentPoster))) {
+                                                form.setValue("posterUrl", urls[0]);
+                                            }
+                                            // If no images, clear poster
+                                            if (urls.length === 0) {
+                                                form.setValue("posterUrl", "");
+                                            }
+                                        }}
+                                        onRemove={(url) => {
+                                            const newUrls = field.value?.filter((val) => val !== url) || [];
+                                            field.onChange(newUrls);
+                                            // Handle poster removal logic
+                                            const currentPoster = form.getValues("posterUrl");
+                                            if (currentPoster === url) {
+                                                form.setValue("posterUrl", newUrls.length > 0 ? newUrls[0] : "");
+                                            }
+                                        }}
+                                        mainImage={form.watch("posterUrl")}
+                                        onSetMain={(url) => form.setValue("posterUrl", url)}
+                                        maxFiles={6}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -105,24 +134,12 @@ export default function NewEventPage() {
                         )}
                     />
 
+                    {/* Hidden field to validate posterUrl requirement */}
                     <FormField
                         control={form.control}
-                        name="images"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Additional Images (Max 5)</FormLabel>
-                                <div className="text-sm text-muted-foreground mb-4">
-                                    These photos will be automatically added to the Gallery.
-                                </div>
-                                <FormControl>
-                                    <MultiImageUpload
-                                        value={field.value || []}
-                                        disabled={loading}
-                                        onChange={(urls) => field.onChange(urls)}
-                                        onRemove={(url) => field.onChange(field.value?.filter((val) => val !== url))}
-                                        maxFiles={5}
-                                    />
-                                </FormControl>
+                        name="posterUrl"
+                        render={() => (
+                            <FormItem className="hidden">
                                 <FormMessage />
                             </FormItem>
                         )}
