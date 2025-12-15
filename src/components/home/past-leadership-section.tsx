@@ -31,14 +31,20 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                         {pastYears.map((year) => (
                             <div
                                 key={year.id}
-                                className="snap-center shrink-0 w-[340px] md:w-[400px] bg-card border rounded-xl shadow-md overflow-hidden flex flex-col"
+                                className="snap-center shrink-0 w-[380px] md:w-[440px] bg-card border rounded-xl shadow-md overflow-hidden flex flex-col"
                             >
                                 {/* Year Header with Theme */}
-                                <div className="bg-[#005DAA] p-6 text-center border-b space-y-3">
+                                <div className="bg-[#005DAA] p-8 text-center border-b space-y-4">
                                     <h3 className="text-2xl font-bold text-white">{year.name}</h3>
                                     {year.themeLogoUrl && (
-                                        <div className="h-24 w-24 flex items-center justify-center mx-auto">
-                                            <img src={getTransparentUrl(year.themeLogoUrl)} alt="Year Theme" className="w-full h-full object-contain filter drop-shadow-sm" />
+                                        <div className="flex items-center justify-center mx-auto">
+                                            <div className="h-32 w-32 rounded-full bg-white flex items-center justify-center p-4 shadow-lg">
+                                                <img
+                                                    src={year.themeLogoUrl}
+                                                    alt="Year Theme"
+                                                    className="w-full h-full object-contain"
+                                                />
+                                            </div>
                                         </div>
                                     )}
                                     {year.themeTitle && (
