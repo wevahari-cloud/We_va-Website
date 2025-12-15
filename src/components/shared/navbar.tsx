@@ -10,10 +10,11 @@ const NAV_ITEMS = [
     { label: "Gallery", href: "/gallery" },
 ];
 
-// Helper to inject Cloudinary background removal
+// Helper to inject Cloudinary background removal with aggressive white removal
 const getTransparentUrl = (url: string) => {
     if (!url || !url.includes("cloudinary.com")) return url;
-    return url.replace("/upload/", "/upload/e_background_removal/");
+    // Apply background removal + make white transparent + optimize
+    return url.replace("/upload/", "/upload/e_bgremoval:white_20,f_auto,q_auto/");
 };
 
 export async function Navbar() {
