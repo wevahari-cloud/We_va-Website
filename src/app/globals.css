@@ -50,9 +50,6 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
@@ -60,18 +57,24 @@
 
 /* Custom Animations */
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(247, 168, 27, 0.4);
   }
+
   50% {
     box-shadow: 0 0 40px rgba(247, 168, 27, 0.8);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -81,6 +84,7 @@
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -91,6 +95,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -101,25 +106,25 @@
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
-  
+
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
-  
+
   .animate-shimmer {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     background-size: 1000px 100%;
     animation: shimmer 2s infinite;
   }
-  
+
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out;
   }
-  
+
   .card-hover {
     @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
   }
-  
+
   .button-hover-glow {
     @apply transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/50;
   }
