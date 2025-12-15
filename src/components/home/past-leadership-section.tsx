@@ -5,6 +5,15 @@ interface PastLeadershipSectionProps {
     pastYears: any[];
 }
 
+// Helper to inject Cloudinary transformations
+const getTransformedUrl = (url: string) => {
+    if (!url || !url.includes("cloudinary.com")) return url;
+    // Inject background removal and red background (using red-600 color: #DC2626)
+    // We add e_background_removal to remove existing background, and b_rgb:DC2626 for the new one.
+    // Note: e_background_removal is a Cloudinary add-on. If not enabled, this might be ignored or error.
+    return url.replace("/upload/", "/upload/e_background_removal,b_rgb:DC2626/");
+};
+
 export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps) {
     if (pastYears.length === 0) return null;
 
@@ -51,11 +60,15 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                                             (isSingle || isThreeAndFirst) ? "col-span-2" : "col-span-1"
                                                         )}
                                                     >
-                                                        <div className="w-20 h-20 rounded-full bg-muted overflow-hidden border-2 border-border">
+                                                        <div className="w-20 h-20 rounded-full bg-red-600 overflow-hidden border-2 border-border relative">
                                                             {leader.imageUrl ? (
-                                                                <img src={leader.imageUrl} alt={leader.name} className="w-full h-full object-cover" />
+                                                                <img
+                                                                    src={getTransformedUrl(leader.imageUrl)}
+                                                                    alt={leader.name}
+                                                                    className="w-full h-full object-cover"
+                                                                />
                                                             ) : (
-                                                                <div className="flex items-center justify-center h-full text-xs text-muted-foreground">No Img</div>
+                                                                <div className="flex items-center justify-center h-full text-xs text-white">No Img</div>
                                                             )}
                                                         </div>
                                                         <div>
