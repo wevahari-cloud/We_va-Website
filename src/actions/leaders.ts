@@ -28,6 +28,7 @@ export async function addLeader(data: {
         await db.insert(leaders).values(data);
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to add leader:", error);
@@ -40,6 +41,7 @@ export async function updateLeader(id: number, data: Partial<typeof leaders.$inf
         await db.update(leaders).set(data).where(eq(leaders.id, id));
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to update leader:", error);
@@ -52,6 +54,7 @@ export async function deleteLeader(id: number) {
         await db.delete(leaders).where(eq(leaders.id, id));
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to delete leader:", error);
@@ -69,6 +72,7 @@ export async function reorderLeaders(updates: { id: number; order: number }[]) {
         );
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to reorder leaders:", error);
@@ -116,6 +120,7 @@ export async function addPastYear(data: {
         await db.insert(pastYears).values(data);
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to add past year:", error);
@@ -128,6 +133,7 @@ export async function updatePastYear(id: number, data: Partial<typeof pastYears.
         await db.update(pastYears).set(data).where(eq(pastYears.id, id));
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to update past year:", error);
@@ -146,6 +152,7 @@ export async function addPastLeader(data: {
         await db.insert(pastLeaders).values(data);
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to add past leader:", error);
@@ -158,6 +165,7 @@ export async function updatePastLeader(id: number, data: Partial<typeof pastLead
         await db.update(pastLeaders).set(data).where(eq(pastLeaders.id, id));
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to update past leader:", error);
@@ -170,6 +178,7 @@ export async function deletePastLeader(id: number) {
         await db.delete(pastLeaders).where(eq(pastLeaders.id, id));
         revalidatePath("/leaders");
         revalidatePath("/admin/leaders");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to delete past leader:", error);
