@@ -43,10 +43,6 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                         {item.label}
                     </Link>
                 ))}
-                <Button asChild variant="outline" className="border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-slate-900 font-semibold mr-2">
-                    {/* Placeholder for Automated Donation Link */}
-                    <Link href="https://rzp.io/l/donate-western-valley" target="_blank">Donate</Link>
-                </Button>
                 <Button asChild variant="default" className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 font-semibold">
                     <Link href="https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1" target="_blank">Join Us</Link>
                 </Button>
@@ -79,9 +75,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                                     {item.label}
                                 </Link>
                             ))}
-                            <Button asChild variant="outline" className="mt-4 w-full border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-white font-semibold">
-                                <Link href="https://rzp.io/l/donate-western-valley" target="_blank">Donate Funds</Link>
-                            </Button>
+
                             <Button asChild className="w-full bg-yellow-500 text-slate-900 hover:bg-yellow-400 font-semibold">
                                 <Link href="https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1" target="_blank">Join Us Today</Link>
                             </Button>

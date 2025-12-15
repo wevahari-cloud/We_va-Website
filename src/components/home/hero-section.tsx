@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SparksEffect } from "@/components/effects/sparks-effect";
 
 
 
@@ -57,6 +58,7 @@ export function HeroSection({ data }: { data: any }) {
 
     return (
         <section className="relative w-full">
+            <SparksEffect />
             <Carousel
                 setApi={setApi}
                 plugins={[plugin.current]}
