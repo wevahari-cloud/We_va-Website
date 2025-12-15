@@ -14,6 +14,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ParticleBackground } from "@/components/effects/ParticleBackground";
+
 
 
 
@@ -74,22 +76,45 @@ export function HeroSection({ data }: { data: any }) {
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-black/60" />
 
+                            {/* Particle Background */}
+                            <div className="absolute inset-0 z-5">
+                                <ParticleBackground />
+                            </div>
+
                             {/* Text Overlay (Same for all slides to simplify admin) */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-white z-10">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
                                 >
-                                    <h1 className="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-xl text-white">
+                                    <motion.h1
+                                        className="text-4xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-xl text-white"
+                                        initial={{ scale: 0.9 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ duration: 0.5, delay: 0.4 }}
+                                    >
                                         {heroTitle}
-                                    </h1>
-                                    <p className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto font-medium drop-shadow-md text-slate-100 leading-relaxed">
+                                    </motion.h1>
+                                    <motion.p
+                                        className="text-lg md:text-2xl mb-10 max-w-3xl mx-auto font-medium drop-shadow-md text-slate-100 leading-relaxed"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.6, delay: 0.6 }}
+                                    >
                                         {heroSubtitle}
-                                    </p>
-                                    <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-yellow-400 font-semibold text-lg px-8 py-6 rounded-full shadow-lg transition-transform hover:scale-105">
-                                        <Link href={heroButtonLink}>{heroButtonText}</Link>
-                                    </Button>
+                                    </motion.p>
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5, delay: 0.8 }}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-yellow-400 font-semibold text-lg px-8 py-6 rounded-full shadow-lg transition-all hover:shadow-2xl hover:shadow-yellow-500/50 animate-pulse-glow">
+                                            <Link href={heroButtonLink}>{heroButtonText}</Link>
+                                        </Button>
+                                    </motion.div>
                                 </motion.div>
                             </div>
                         </CarouselItem>

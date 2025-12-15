@@ -27,10 +27,15 @@ export default async function PublicLeadersPage() {
             <section>
                 <h2 className="text-3xl font-bold text-center mb-16">Board of Officials</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 max-w-[1400px] mx-auto px-4">
-                    {leaders.map((leader) => (
-                        <div
+                    {leaders.map((leader, index) => (
+                        <motion.div
                             key={leader.id}
-                            className="bg-card text-card-foreground rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col group"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.4, delay: index * 0.05 }}
+                            whileHover={{ y: -8, scale: 1.02 }}
+                            className="bg-card text-card-foreground rounded-lg shadow-sm border overflow-hidden hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col group"
                         >
                             {/* Card Header with Image and Background Pattern */}
                             <div className="relative pt-6 pb-2 px-2 bg-[#005DAA] border-b flex flex-col items-center">
