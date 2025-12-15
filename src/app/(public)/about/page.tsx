@@ -40,14 +40,15 @@ export default async function AboutPage() {
                         </p>
                     </CardContent>
                 </Card>
-                <Card className="bg-slate-100 dark:bg-slate-800 border-none">
+                <Card className="bg-slate-100 dark:bg-slate-800 border-none flex flex-col">
                     <CardHeader className="flex flex-row items-center gap-4">
                         <Lightbulb className="h-8 w-8 text-yellow-500" />
                         <CardTitle className="text-2xl">Our Vision</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        To create a family and lead the young generation to strive for the society.
-
+                    <CardContent className="flex-1 flex items-center">
+                        <p className="text-lg text-muted-foreground leading-relaxed">
+                            To create a united family of young leaders and guide the next generation to strive for the betterment of society. We aim to foster a spirit of fellowship and service, empowering youth to take ownership of their communities and drive positive change through professional excellence and inclusive leadership.
+                        </p>
                     </CardContent>
                 </Card>
             </div>
