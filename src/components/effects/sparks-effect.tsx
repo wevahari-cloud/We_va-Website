@@ -35,15 +35,15 @@ export function SparksEffect() {
                     },
                     modes: {
                         trail: {
-                            delay: 0.005,
+                            delay: 0,
                             pauseOnStop: true,
-                            quantity: 5,
+                            quantity: 3,
                         },
                     },
                 },
                 particles: {
                     color: {
-                        value: ["#ff595e", "#ffca3a", "#8ac926"],
+                        value: ["#FFD700", "#FF4500", "#FF8C00", "#FFFFFF"], // Gold, Red, Orange, White
                     },
                     move: {
                         direction: "none",
@@ -52,42 +52,46 @@ export function SparksEffect() {
                             default: "destroy",
                         },
                         random: true,
-                        speed: 6,
+                        speed: 5,
                         straight: false,
+                        gravity: {
+                            enable: true,
+                            acceleration: 9.8,
+                            maxSpeed: 20
+                        },
                     },
                     number: {
                         value: 0,
                     },
                     opacity: {
-                        value: { min: 0.3, max: 0.8 },
+                        value: { min: 0.5, max: 1 },
                         animation: {
                             enable: true,
-                            speed: 0.5,
+                            speed: 3,
                             sync: false,
+                            destroy: "min",
+                            startValue: "max"
                         },
                     },
                     shape: {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 2, max: 4 },
+                        value: { min: 2, max: 5 },
                         animation: {
                             enable: true,
-                            speed: 2,
+                            speed: 5,
                             sync: false,
+                            destroy: "max",
+                            startValue: "max"
                         },
                     },
                     life: {
-                        count: 1,
                         duration: {
-                            value: 1.5,
+                            sync: true,
+                            value: 1
                         },
-                        delay: 0.1,
-                    },
-                    trail: {
-                        enable: true,
-                        length: 10,  // Length of the trail left by the particle
-                        fillColor: "#000000", // Not used if using simple trail, but can be configured
+                        count: 1
                     },
                 },
                 detectRetina: true,

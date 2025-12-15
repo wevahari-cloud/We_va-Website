@@ -25,10 +25,10 @@ export async function Navbar() {
         <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur">
             <div className="relative w-full px-[10px] flex h-20 items-center justify-between">
                 {/* HI! Decoration */}
-                <span className="font-pacifico text-5xl mr-2 select-none">
-                    <span className="text-blue-500">H</span>
-                    <span className="text-red-500">I</span>
-                    <span className="text-yellow-400">!</span>
+                <span className="font-pacifico text-6xl mr-2 select-none drop-shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                    <span className="text-[#4285F4]">H</span>
+                    <span className="text-[#EA4335]">I</span>
+                    <span className="text-[#FBBC05]">!</span>
                 </span>
 
                 {/* Centered Logo Section */}
