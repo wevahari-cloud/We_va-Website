@@ -33,10 +33,10 @@ export default async function PublicLeadersPage() {
                             className="bg-card text-card-foreground rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col group"
                         >
                             {/* Card Header with Image and Background Pattern */}
-                            <div className="relative pt-6 pb-2 px-2 bg-muted/30 border-b flex flex-col items-center">
+                            <div className="relative pt-6 pb-2 px-2 bg-[#005DAA] border-b flex flex-col items-center">
                                 {/* Simple Background Pattern */}
-                                <div className="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity">
-                                    <img src="/logo-placeholder.png" alt="" className="w-10 h-10 object-contain" />
+                                <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <img src="/logo-placeholder.png" alt="" className="w-10 h-10 object-contain invert brightness-0" />
                                 </div>
 
                                 <div className="w-24 h-24 rounded-full border-2 border-[#F7A81B] shadow-sm overflow-hidden bg-[#F7A81B] relative z-10">
