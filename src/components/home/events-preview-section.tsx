@@ -62,7 +62,7 @@ export function EventsPreviewSection({ events = [] }: { events?: any[] }) {
                     <div className="text-center py-12 bg-muted/20 rounded-lg border border-dashed border-slate-300 dark:border-slate-700">
                         <h3 className="text-xl font-semibold mb-2">No Upcoming Events</h3>
                         <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                            There are currently no upcoming events scheduled. But don't worry, you can get to know about our impactful past activities by exploring our history.
+                            There are currently no upcoming events scheduled. However, you can learn about our impactful past activities by exploring our history.
                         </p>
                         <Button asChild size="lg">
                             <Link href="/events?view=past">View Past Events</Link>
