@@ -32,20 +32,18 @@ export function Footer() {
                 <div className="space-y-4">
                     <h4 className="text-lg font-semibold text-white">Contact Us</h4>
                     <div className="space-y-3 text-sm text-slate-400">
-                        <div className="space-y-3 text-sm text-slate-400">
-                            <div className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors cursor-default">
-                                <Mail className="h-4 w-4 shrink-0" />
-                                <span>racwesternvalley@gmail.com</span>
-                            </div>
-                            <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors">
-                                <Instagram className="h-4 w-4 shrink-0" />
-                                <span>@rac_western_valley</span>
-                            </Link>
-                            <Link href="https://www.linkedin.com/company/rotaract-club-of-western-valley/" target="_blank" className="flex items-center space-x-2 hover:text-blue-500 transition-colors">
-                                <Linkedin className="h-4 w-4 shrink-0" />
-                                <span>Rotaract Club of Western Valley</span>
-                            </Link>
+                        <div className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors cursor-default">
+                            <Mail className="h-4 w-4 shrink-0" />
+                            <span>racwesternvalley@gmail.com</span>
                         </div>
+                        <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors">
+                            <Instagram className="h-4 w-4 shrink-0" />
+                            <span>@rac_western_valley</span>
+                        </Link>
+                        <Link href="https://www.linkedin.com/company/rotaract-club-of-western-valley/" target="_blank" className="flex items-center space-x-2 hover:text-blue-500 transition-colors">
+                            <Linkedin className="h-4 w-4 shrink-0" />
+                            <span>Rotaract Club of Western Valley</span>
+                        </Link>
                     </div>
 
                     {/* Rotaract Essentials (Moved to 4th Column & Expanded) */}
