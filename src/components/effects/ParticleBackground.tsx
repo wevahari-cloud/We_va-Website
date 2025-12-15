@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
-import Particles from "@tsparticles/react";
-import type { Container, Engine } from "@tsparticles/engine";
+import { useEffect, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import type { Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 
 interface ParticleBackgroundProps {
@@ -10,20 +10,30 @@ interface ParticleBackgroundProps {
 }
 
 export function ParticleBackground({ className = "" }: ParticleBackgroundProps) {
-    const particlesInit = useCallback(async (engine: Engine) => {
-        await loadSlim(engine);
+    const [init, setInit] = useState(false);
+
+    // Initialize particles engine once
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            await loadSlim(engine);
+        }).then(() => {
+            setInit(true);
+        });
     }, []);
 
-    const particlesLoaded = useCallback(async (container: Container | undefined) => {
+    const particlesLoaded = async (container?: Container) => {
         // Optional callback when particles are loaded
-    }, []);
+    };
+
+    if (!init) {
+        return null;
+    }
 
     return (
         <Particles
             id="tsparticles"
             className={className}
-            init={particlesInit}
-            loaded={particlesLoaded}
+            particlesLoaded={particlesLoaded}
             options={{
                 background: {
                     color: {
@@ -76,7 +86,6 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                         animation: {
                             enable: true,
                             speed: 1,
-                            minimumValue: 0.1,
                         },
                     },
                     shape: {
@@ -87,7 +96,6 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                         animation: {
                             enable: true,
                             speed: 2,
-                            minimumValue: 0.5,
                         },
                     },
                     twinkle: {
