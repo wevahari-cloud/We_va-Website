@@ -11,7 +11,6 @@ export function WaterEffect() {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
-            console.log("Ripple Effect initialized");
             setInit(true);
         });
     }, []);
