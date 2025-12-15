@@ -62,7 +62,7 @@ export default function SettingsPage() {
                 <CardContent className="space-y-4">
                     {logoUrl && (
                         <div className="mb-4 p-4 bg-[#005DAA] rounded-lg flex items-center justify-start">
-                            <div className="h-16 w-auto">
+                            <div className="h-20 w-auto">
                                 <img
                                     src={logoUrl.includes("cloudinary.com")
                                         ? logoUrl.replace("/upload/", "/upload/e_bgremoval:white_20,f_auto,q_auto/")
