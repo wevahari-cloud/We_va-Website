@@ -11,6 +11,7 @@ export function WaterEffect() {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
+            console.log("Water Effect initialized");
             setInit(true);
         });
     }, []);
@@ -61,7 +62,7 @@ export function WaterEffect() {
                         },
                     },
                     number: {
-                        value: 0, // Start with 0, created by trail
+                        value: 20, // Start with 20 to verify rendering
                     },
                     opacity: {
                         value: { min: 0.4, max: 0.8 },
