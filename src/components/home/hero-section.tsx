@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ParticleBackground } from "@/components/effects/ParticleBackground";
+
 
 
 
@@ -75,11 +75,6 @@ export function HeroSection({ data }: { data: any }) {
                             />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-black/60" />
-
-                            {/* Particle Background */}
-                            <div className="absolute inset-0 z-5">
-                                <ParticleBackground />
-                            </div>
 
                             {/* Text Overlay (Same for all slides to simplify admin) */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-white z-10">

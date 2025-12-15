@@ -1,0 +1,20 @@
+{
+  "node": {
+    "40ba8d215f6ecc49966469fb08518ce1749033be6d": {
+      "workers": {
+        "app/admin/team/new/page": {
+          "moduleId": 91866,
+          "async": false,
+          "exportedName": "addTeamMember",
+          "filename": "src/actions/team.ts"
+        }
+      },
+      "layer": {
+        "app/admin/team/new/page": "action-browser"
+      },
+      "exportedName": "addTeamMember",
+      "filename": "src/actions/team.ts"
+    }
+  },
+  "edge": {}
+}

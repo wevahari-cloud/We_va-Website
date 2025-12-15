@@ -1,0 +1,35 @@
+{
+  "node": {
+    "00f9a7a584e89020dd5388211223be80bbf39d5ef5": {
+      "workers": {
+        "app/admin/gallery/page": {
+          "moduleId": 16887,
+          "async": false,
+          "exportedName": "getGalleryImages",
+          "filename": "src/actions/gallery.ts"
+        }
+      },
+      "layer": {
+        "app/admin/gallery/page": "action-browser"
+      },
+      "exportedName": "getGalleryImages",
+      "filename": "src/actions/gallery.ts"
+    },
+    "40a754ebeea1af3b68804c3a4b47560b936b735fdd": {
+      "workers": {
+        "app/admin/gallery/page": {
+          "moduleId": 16887,
+          "async": false,
+          "exportedName": "deleteGalleryImage",
+          "filename": "src/actions/gallery.ts"
+        }
+      },
+      "layer": {
+        "app/admin/gallery/page": "action-browser"
+      },
+      "exportedName": "deleteGalleryImage",
+      "filename": "src/actions/gallery.ts"
+    }
+  },
+  "edge": {}
+}
