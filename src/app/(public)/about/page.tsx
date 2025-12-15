@@ -7,7 +7,14 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, Lightbulb, Heart } from "lucide-react";
 
-export default function AboutPage() {
+import { getAvenues, seedAvenues } from "@/actions/avenues";
+
+export default async function AboutPage() {
+    let avenues = await getAvenues();
+    if (avenues.length === 0) {
+        await seedAvenues();
+        avenues = await getAvenues();
+    }
     return (
         <div className="container mx-auto px-4 py-12">
             {/* Hero */}
@@ -39,9 +46,8 @@ export default function AboutPage() {
                         <CardTitle className="text-2xl">Our Vision</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-lg text-muted-foreground">
-                            To be the leading youth organization in Western Valley, recognized for sustainable community impact, professional excellence, and inclusive leadership development.
-                        </p>
+                        To create a family and lead the young generation to strive for the society.
+
                     </CardContent>
                 </Card>
             </div>
@@ -50,19 +56,22 @@ export default function AboutPage() {
             <div className="mb-20">
                 <h2 className="text-3xl font-bold text-center mb-12">Avenues of Service</h2>
                 <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
-                    {[
-                        "Club Service",
-                        "Community Service",
-                        "Professional Service",
-                        "International Service",
-                        "District Priority Project 'DREAM'",
-                    ].map((avenue, idx) => (
+                    {avenues.map((avenue, idx) => (
                         <div
-                            key={idx}
-                            className={`flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center w-full md:w-[calc(25%-1.5rem)] min-w-[250px]`}
+                            key={avenue.id || idx}
+                            className={`flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow text-center w-full md:w-[calc(25%-1.5rem)] min-w-[250px] relative overflow-hidden group`}
+                            style={
+                                avenue.imageUrl
+                                    ? {
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${avenue.imageUrl})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                    }
+                                    : {}
+                            }
                         >
-                            <Heart className="h-10 w-10 text-primary mb-4" />
-                            <h3 className="font-bold text-lg">{avenue}</h3>
+                            <Heart className={`h-10 w-10 mb-4 ${avenue.imageUrl ? "text-white" : "text-primary"}`} />
+                            <h3 className={`font-bold text-lg ${avenue.imageUrl ? "text-white" : ""}`}>{avenue.title}</h3>
                         </div>
                     ))}
                 </div>

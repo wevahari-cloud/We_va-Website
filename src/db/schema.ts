@@ -85,3 +85,12 @@ export const pastLeaders = pgTable("past_leaders", {
     order: integer("order"), // Changed to integer
     createdAt: timestamp("created_at").defaultNow(),
 });
+
+// Avenues of Service
+export const avenues = pgTable("avenues", {
+    id: serial("id").primaryKey(),
+    title: text("title").notNull(), // 'Club Service', 'Community Service', etc.
+    imageUrl: text("image_url"), // Background image
+    order: integer("order").default(0),
+    createdAt: timestamp("created_at").defaultNow(),
+});

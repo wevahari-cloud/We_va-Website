@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -48,6 +49,11 @@ function EventCard({ event, isPast = false }: { event: any, isPast?: boolean }) 
                         <Calendar className="h-3 w-3 mr-1" />
                         {event.date}
                     </div>
+                    {event.description && (
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-2">
+                            {event.description}
+                        </p>
+                    )}
                 </CardHeader>
             </Card>
         </Link>
@@ -59,8 +65,17 @@ interface PublicEventsListProps {
 }
 
 export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
+    const searchParams = useSearchParams();
+    const view = searchParams.get("view");
     const [categoryFilter, setCategoryFilter] = useState<string>("all");
     const [dateRange, setDateRange] = useState<DateRange | undefined>();
+    const [defaultTab, setDefaultTab] = useState("past");
+
+    useEffect(() => {
+        if (view === "upcoming") {
+            setDefaultTab("upcoming");
+        }
+    }, [view]);
 
     const categories = [
         "Club Service",
@@ -176,7 +191,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
                 )}
             </div>
 
-            <Tabs defaultValue="past" className="w-full">
+            <Tabs value={defaultTab} onValueChange={setDefaultTab} className="w-full">
                 <div className="flex justify-center mb-8">
                     <TabsList className="grid w-full max-w-md grid-cols-2">
                         <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>

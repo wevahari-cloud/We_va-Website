@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getEvents } from "@/actions/events";
 import { PublicEventsList } from "@/components/events/public-events-list";
 
@@ -13,7 +14,9 @@ export default async function EventsPage() {
                 </p>
             </div>
 
-            <PublicEventsList initialEvents={allEvents} />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading events...</div>}>
+                <PublicEventsList initialEvents={allEvents} />
+            </Suspense>
         </div>
     );
 }
