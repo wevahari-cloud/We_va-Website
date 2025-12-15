@@ -38,11 +38,11 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                     <h3 className="text-2xl font-bold text-white">{year.name}</h3>
                                     {year.themeLogoUrl && (
                                         <div className="flex items-center justify-center mx-auto">
-                                            <div className="h-32 w-32 rounded-full bg-white flex items-center justify-center p-4 shadow-lg">
+                                            <div className="h-32 w-32 rounded-full bg-white flex items-center justify-center p-2 shadow-lg overflow-hidden">
                                                 <img
                                                     src={year.themeLogoUrl}
                                                     alt="Year Theme"
-                                                    className="w-full h-full object-contain"
+                                                    className="w-full h-full object-cover rounded-full scale-110"
                                                 />
                                             </div>
                                         </div>
