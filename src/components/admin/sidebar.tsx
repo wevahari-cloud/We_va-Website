@@ -19,7 +19,12 @@ const ADMIN_NAV = [
     { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+    className?: string;
+    onNavigate?: () => void;
+}
+
+export function AdminSidebar({ className, onNavigate }: AdminSidebarProps) {
     const pathname = usePathname();
     const router = useRouter();
 
@@ -29,7 +34,7 @@ export function AdminSidebar() {
     };
 
     return (
-        <div className="flex h-screen w-64 flex-col border-r bg-slate-900 text-slate-100">
+        <div className={cn("flex h-full w-64 flex-col border-r bg-slate-900 text-slate-100", className)}>
             <div className="p-6">
                 <h2 className="text-xl font-bold tracking-tight text-white">Admin Panel</h2>
                 <p className="text-xs text-slate-400">RAC Western Valley</p>
@@ -39,6 +44,7 @@ export function AdminSidebar() {
                     <Link
                         key={item.href}
                         href={item.href}
+                        onClick={onNavigate}
                         className={cn(
                             "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-slate-800 hover:text-white",
                             pathname === item.href ? "bg-primary text-white" : "text-slate-400"
