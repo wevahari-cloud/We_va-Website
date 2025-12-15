@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Users, Calendar, Settings, LogOut, Image as ImageIcon, Home, Crown, Heart } from "lucide-react";
+import { LayoutDashboard, Users, Calendar, Settings, LogOut, Image as ImageIcon, Home, Crown, Heart, HelpCircle } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
@@ -14,6 +14,7 @@ const ADMIN_NAV = [
     { label: "Home Page", href: "/admin/home", icon: Home },
     { label: "Leaders", href: "/admin/leaders", icon: Crown }, // Added Leaders link
     { label: "Avenues", href: "/admin/avenues", icon: Heart }, // Added Avenues link
+    { label: "Benefits", href: "/admin/why-join", icon: HelpCircle },
     { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "Gallery", href: "/admin/gallery", icon: ImageIcon },
     { label: "Settings", href: "/admin/settings", icon: Settings },

@@ -8,10 +8,8 @@ interface PastLeadershipSectionProps {
 // Helper to inject Cloudinary transformations
 const getTransformedUrl = (url: string) => {
     if (!url || !url.includes("cloudinary.com")) return url;
-    // Inject background removal and red background (using red-600 color: #DC2626)
-    // We add e_background_removal to remove existing background, and b_rgb:DC2626 for the new one.
-    // Note: e_background_removal is a Cloudinary add-on. If not enabled, this might be ignored or error.
-    return url.replace("/upload/", "/upload/e_background_removal,b_rgb:DC2626/");
+    // Inject background removal and Rotary Yellow background (#F7A81B)
+    return url.replace("/upload/", "/upload/e_background_removal,b_rgb:F7A81B/");
 };
 
 export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps) {
@@ -30,15 +28,15 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                 className="snap-center shrink-0 w-[340px] md:w-[400px] bg-card border rounded-xl shadow-md overflow-hidden flex flex-col"
                             >
                                 {/* Year Header with Theme */}
-                                <div className="bg-muted/30 p-6 text-center border-b space-y-3">
-                                    <h3 className="text-2xl font-bold">{year.name}</h3>
+                                <div className="bg-[#005DAA] p-6 text-center border-b space-y-3">
+                                    <h3 className="text-2xl font-bold text-white">{year.name}</h3>
                                     {year.themeLogoUrl && (
-                                        <div className="h-20 w-20 flex items-center justify-center mx-auto rounded-full overflow-hidden border-2 border-border bg-white p-1">
+                                        <div className="h-20 w-20 flex items-center justify-center mx-auto rounded-full overflow-hidden border-2 border-white/20 bg-white p-1">
                                             <img src={year.themeLogoUrl} alt="Year Theme" className="w-full h-full object-contain rounded-full" />
                                         </div>
                                     )}
                                     {year.themeTitle && (
-                                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+                                        <p className="text-sm font-medium text-blue-100 uppercase tracking-widest">
                                             {year.themeTitle}
                                         </p>
                                     )}
@@ -60,7 +58,7 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                                             (isSingle || isThreeAndFirst) ? "col-span-2" : "col-span-1"
                                                         )}
                                                     >
-                                                        <div className="w-20 h-20 rounded-full bg-red-600 overflow-hidden border-2 border-border relative">
+                                                        <div className="w-20 h-20 rounded-full bg-[#F7A81B] overflow-hidden border-2 border-border relative">
                                                             {leader.imageUrl ? (
                                                                 <img
                                                                     src={getTransformedUrl(leader.imageUrl)}
@@ -68,7 +66,7 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                                                     className="w-full h-full object-cover"
                                                                 />
                                                             ) : (
-                                                                <div className="flex items-center justify-center h-full text-xs text-white">No Img</div>
+                                                                <div className="flex items-center justify-center h-full text-xs text-black font-medium">No Img</div>
                                                             )}
                                                         </div>
                                                         <div>

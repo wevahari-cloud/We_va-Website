@@ -94,3 +94,14 @@ export const avenues = pgTable("avenues", {
     order: integer("order").default(0),
     createdAt: timestamp("created_at").defaultNow(),
 });
+
+// Why Join Rotaract Benefits
+export const whyJoin = pgTable("why_join", {
+    id: serial("id").primaryKey(),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    imageUrl: text("image_url"),
+    icon: text("icon"), // 'Briefcase', 'HeartHandshake', 'Smile'
+    order: integer("order").default(0),
+    createdAt: timestamp("created_at").defaultNow(),
+});
