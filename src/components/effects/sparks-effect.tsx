@@ -11,6 +11,7 @@ export function SparksEffect() {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
+            console.log("Sparks initialized");
             setInit(true);
         });
     }, []);
@@ -21,8 +22,8 @@ export function SparksEffect() {
 
     return (
         <Particles
+            className="absolute inset-0 pointer-events-none z-40"
             id="tsparticles"
-            className="absolute inset-0 pointer-events-none z-20"
             options={{
                 fpsLimit: 120,
                 interactivity: {
