@@ -65,7 +65,7 @@ export default function SettingsPage() {
                             <div className="h-12 w-auto">
                                 <img
                                     src={logoUrl.includes("cloudinary.com")
-                                        ? logoUrl.replace("/upload/", "/upload/e_background_removal/")
+                                        ? logoUrl.replace("/upload/", "/upload/e_bgremoval:white_20,f_auto,q_auto/")
                                         : logoUrl
                                     }
                                     alt="Navbar Logo Preview"
