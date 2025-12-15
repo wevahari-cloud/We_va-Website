@@ -37,7 +37,9 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                             enable: true,
                             mode: "repulse",
                         },
-                        resize: true,
+                        resize: {
+                            enable: true,
+                        },
                     },
                     modes: {
                         repulse: {
