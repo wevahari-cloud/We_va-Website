@@ -13,8 +13,9 @@ const ADMIN_NAV = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { label: "Home Page", href: "/admin/home", icon: Home },
     { label: "Leaders", href: "/admin/leaders", icon: Crown }, // Added Leaders link
-    { label: "Avenues", href: "/admin/avenues", icon: Heart }, // Added Avenues link
-    { label: "Benefits", href: "/admin/why-join", icon: HelpCircle },
+    { label: "Leaders", href: "/admin/leaders", icon: Crown }, // Added Leaders link
+    { label: "Avenues & Benefits", href: "/admin/avenues", icon: Heart }, // Combined link
+    { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "Events", href: "/admin/events", icon: Calendar },
     { label: "Gallery", href: "/admin/gallery", icon: ImageIcon },
     { label: "Settings", href: "/admin/settings", icon: Settings },
