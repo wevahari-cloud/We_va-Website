@@ -22,7 +22,6 @@ const NAV_ITEMS = [
     { label: "Leaders", href: "/leaders" }, // Shortened for UI, can be "Presidents & Secretaries"
     { label: "Events", href: "/events" },
     { label: "Gallery", href: "/gallery" },
-    { label: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -59,7 +58,7 @@ export function Navbar() {
                         </Link>
                     ))}
                     <Button asChild variant="default" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-                        <Link href="https://chat.whatsapp.com/ExAmPleLiNk" target="_blank">Join Us</Link>
+                        <Link href="https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1" target="_blank">Join Us</Link>
                     </Button>
                 </nav>
 
@@ -91,7 +90,7 @@ export function Navbar() {
                                     </Link>
                                 ))}
                                 <Button asChild className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-secondary/90">
-                                    <Link href="https://chat.whatsapp.com/ExAmPleLiNk" target="_blank">Join Us Today</Link>
+                                    <Link href="https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1" target="_blank">Join Us Today</Link>
                                 </Button>
                             </nav>
                         </SheetContent>

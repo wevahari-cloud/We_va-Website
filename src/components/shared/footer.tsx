@@ -45,6 +45,18 @@ export function Footer() {
                             <span>Rotaract Club of Western Valley</span>
                         </Link>
                     </div>
+
+                    {/* Subscribe Section */}
+                    <div className="mt-6">
+                        <h5 className="text-sm font-semibold text-white mb-3">Stay Connected</h5>
+                        <p className="text-xs text-slate-400 mb-3">Follow us on Instagram for updates and events</p>
+                        <Button asChild className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
+                            <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center justify-center gap-2">
+                                <Instagram className="h-4 w-4" />
+                                Subscribe
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Rotaract Essentials (Moved to 4th Column & Expanded) */}
