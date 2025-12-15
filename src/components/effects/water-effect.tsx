@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-export function SparksEffect() {
+export function WaterEffect() {
     const [init, setInit] = useState(false);
 
     useEffect(() => {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
-            console.log("Sparks initialized");
             setInit(true);
         });
     }, []);
@@ -38,22 +37,22 @@ export function SparksEffect() {
                         trail: {
                             delay: 0,
                             pauseOnStop: true,
-                            quantity: 3,
+                            quantity: 4,
                         },
                     },
                 },
                 particles: {
                     color: {
-                        value: ["#FFD700", "#FF4500", "#FF8C00", "#FFFFFF"], // Gold, Red, Orange, White
+                        value: ["#00BFFF", "#1E90FF", "#E0FFFF", "#87CEFA"], // Watery Blues and White
                     },
                     move: {
-                        direction: "none",
+                        direction: "bottom", // Fall down like rain/drizzle
                         enable: true,
                         outModes: {
                             default: "destroy",
                         },
-                        random: true,
-                        speed: 5,
+                        random: false,
+                        speed: 8, // Faster falling
                         straight: false,
                         gravity: {
                             enable: true,
@@ -62,35 +61,31 @@ export function SparksEffect() {
                         },
                     },
                     number: {
-                        value: 0,
+                        value: 0, // Start with 0, created by trail
                     },
                     opacity: {
-                        value: { min: 0.5, max: 1 },
+                        value: { min: 0.4, max: 0.8 },
                         animation: {
-                            enable: true,
-                            speed: 3,
-                            sync: false,
-                            destroy: "min",
-                            startValue: "max"
+                            enable: false,
                         },
                     },
                     shape: {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 2, max: 5 },
+                        value: { min: 3, max: 6 },
                         animation: {
                             enable: true,
-                            speed: 5,
+                            speed: 2,
                             sync: false,
                             destroy: "max",
-                            startValue: "max"
+                            startValue: "min"
                         },
                     },
                     life: {
                         duration: {
                             sync: true,
-                            value: 1
+                            value: 1.5 // Lasts a bit as it falls
                         },
                         count: 1
                     },
