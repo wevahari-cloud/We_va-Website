@@ -12,6 +12,12 @@ const getTransformedUrl = (url: string) => {
     return url.replace("/upload/", "/upload/e_background_removal,b_rgb:F7A81B/");
 };
 
+// Helper for transparent background removal
+const getTransparentUrl = (url: string) => {
+    if (!url || !url.includes("cloudinary.com")) return url;
+    return url.replace("/upload/", "/upload/e_background_removal/");
+};
+
 export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps) {
     if (pastYears.length === 0) return null;
 
@@ -31,8 +37,8 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                 <div className="bg-[#005DAA] p-6 text-center border-b space-y-3">
                                     <h3 className="text-2xl font-bold text-white">{year.name}</h3>
                                     {year.themeLogoUrl && (
-                                        <div className="h-20 w-20 flex items-center justify-center mx-auto rounded-full overflow-hidden border-2 border-white/20 bg-white p-1">
-                                            <img src={year.themeLogoUrl} alt="Year Theme" className="w-full h-full object-contain rounded-full" />
+                                        <div className="h-24 w-24 flex items-center justify-center mx-auto">
+                                            <img src={getTransparentUrl(year.themeLogoUrl)} alt="Year Theme" className="w-full h-full object-contain filter drop-shadow-sm" />
                                         </div>
                                     )}
                                     {year.themeTitle && (
