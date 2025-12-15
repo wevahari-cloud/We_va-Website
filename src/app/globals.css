@@ -49,16 +49,46 @@
   }
 }
 
-/* Custom Animations */
-@keyframes pulse-glow {
+/* Custom Animations - Cross-browser compatible */
+@-webkit-keyframes pulse-glow {
 
   0%,
   100% {
+    -webkit-box-shadow: 0 0 20px rgba(247, 168, 27, 0.4);
     box-shadow: 0 0 20px rgba(247, 168, 27, 0.4);
   }
 
   50% {
+    -webkit-box-shadow: 0 0 40px rgba(247, 168, 27, 0.8);
     box-shadow: 0 0 40px rgba(247, 168, 27, 0.8);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    -webkit-box-shadow: 0 0 20px rgba(247, 168, 27, 0.4);
+    box-shadow: 0 0 20px rgba(247, 168, 27, 0.4);
+  }
+
+  50% {
+    -webkit-box-shadow: 0 0 40px rgba(247, 168, 27, 0.8);
+    box-shadow: 0 0 40px rgba(247, 168, 27, 0.8);
+  }
+}
+
+@-webkit-keyframes float {
+
+  0%,
+  100% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+
+  50% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
   }
 }
 
@@ -66,11 +96,23 @@
 
   0%,
   100% {
+    -webkit-transform: translateY(0px);
     transform: translateY(0px);
   }
 
   50% {
+    -webkit-transform: translateY(-10px);
     transform: translateY(-10px);
+  }
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
   }
 }
 
@@ -84,52 +126,116 @@
   }
 }
 
-@keyframes fadeInUp {
+@-webkit-keyframes fadeInUp {
   from {
     opacity: 0;
+    -webkit-transform: translateY(30px);
     transform: translateY(30px);
   }
 
   to {
     opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(30px);
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
 }
 
 @layer utilities {
   .animate-pulse-glow {
+    -webkit-animation: pulse-glow 2s ease-in-out infinite;
     animation: pulse-glow 2s ease-in-out infinite;
+    will-change: box-shadow;
   }
 
   .animate-float {
+    -webkit-animation: float 3s ease-in-out infinite;
     animation: float 3s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-shimmer {
+    background: -webkit-linear-gradient(left, transparent, rgba(255, 255, 255, 0.1), transparent);
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     background-size: 1000px 100%;
+    -webkit-animation: shimmer 2s infinite;
     animation: shimmer 2s infinite;
+    will-change: background-position;
   }
 
   .animate-fade-in-up {
+    -webkit-animation: fadeInUp 0.6s ease-out;
     animation: fadeInUp 0.6s ease-out;
   }
 
   .card-hover {
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    -o-transition: all 300ms;
     transition: all 300ms;
+    will-change: transform;
   }
 
   .card-hover:hover {
+    -webkit-transform: translateY(-0.5rem);
+    -moz-transform: translateY(-0.5rem);
     transform: translateY(-0.5rem);
+    -webkit-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 
   .button-hover-glow {
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    -o-transition: all 300ms;
     transition: all 300ms;
   }
 
   .button-hover-glow:hover {
+    -webkit-box-shadow: 0 10px 15px -3px rgba(234, 179, 8, 0.5);
     box-shadow: 0 10px 15px -3px rgba(234, 179, 8, 0.5);
+  }
+}
+
+/* Reduced motion for accessibility and low-end devices */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    -webkit-animation-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    -webkit-animation-iteration-count: 1 !important;
+    animation-iteration-count: 1 !important;
+    -webkit-transition-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse-glow,
+  .animate-float,
+  .animate-shimmer,
+  .animate-fade-in-up {
+    -webkit-animation: none !important;
+    animation: none !important;
+  }
+
+  .card-hover:hover {
+    -webkit-transform: none;
+    transform: none;
   }
 }
 
