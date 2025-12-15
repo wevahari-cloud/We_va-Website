@@ -11,14 +11,14 @@ export async function getSiteSettings() {
         if (settings.length === 0) {
             // Create default settings
             const [newSettings] = await db.insert(siteSettings).values({
-                navbarLogoUrl: null,
+                navbarLogoUrl: "/pulse-logo.jpg",
             }).returning();
             return newSettings;
         }
         return settings[0];
     } catch (error) {
         console.error("Error fetching site settings:", error);
-        return { id: 1, navbarLogoUrl: null, updatedAt: new Date() };
+        return { id: 1, navbarLogoUrl: "/pulse-logo.jpg", updatedAt: new Date() };
     }
 }
 
