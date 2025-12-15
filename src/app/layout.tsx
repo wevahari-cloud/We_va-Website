@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Pacifico } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
+const pacifico = Pacifico({ subsets: ["latin"], weight: "400", variable: "--font-pacifico" });
 
 export const metadata: Metadata = {
   title: "Rotaract Club of Western Valley | Club 214199",
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${pacifico.variable}`}>
         {children}
         <Toaster />
       </body>

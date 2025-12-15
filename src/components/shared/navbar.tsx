@@ -23,17 +23,22 @@ export async function Navbar() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur">
-            <div className="w-full px-[10px] flex h-20 items-center">
-                {/* Logo Section */}
-                <Link href="/" className="flex items-center gap-3">
-                    <span className="text-5xl font-black text-black tracking-tighter mr-2">HI!</span>
-                    {logoUrl && (
-                        <img src={logoUrl} alt="Club Logo" className="h-32 w-auto object-contain" />
-                    )}
-                </Link>
+            <div className="relative w-full px-[10px] flex h-20 items-center justify-between">
+                {/* HI! Decoration */}
+                <span className="font-pacifico text-5xl mr-2 select-none">
+                    <span className="text-blue-500">H</span>
+                    <span className="text-red-500">I</span>
+                    <span className="text-yellow-400">!</span>
+                </span>
 
-                {/* Spacer to push nav to right */}
-                <div className="flex-1"></div>
+                {/* Centered Logo Section */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Link href="/">
+                        {logoUrl && (
+                            <img src={logoUrl} alt="Club Logo" className="h-32 w-auto object-contain" />
+                        )}
+                    </Link>
+                </div>
 
                 {/* Client-side nav for interactivity */}
                 <NavbarClient navItems={NAV_ITEMS} />
