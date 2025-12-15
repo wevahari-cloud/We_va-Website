@@ -193,7 +193,7 @@ export function PublicEventsList({ initialEvents }: PublicEventsListProps) {
 
             <Tabs value={defaultTab} onValueChange={setDefaultTab} className="w-full">
                 <div className="flex justify-center mb-8">
-                    <TabsList className="grid w-full max-w-md grid-cols-2">
+                    <TabsList className="grid w-full max-w-md grid-cols-2 h-auto">
                         <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
                         <TabsTrigger value="past">Past Events</TabsTrigger>
                     </TabsList>

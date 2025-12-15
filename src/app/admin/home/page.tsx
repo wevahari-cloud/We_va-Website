@@ -116,7 +116,7 @@ export default function AdminHomePage() {
             <Form {...form}>
                 <form className="space-y-8">
                     <Tabs defaultValue="hero" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3">
+                        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 h-auto">
                             <TabsTrigger value="hero">Hero Section</TabsTrigger>
                             <TabsTrigger value="stats">Stats</TabsTrigger>
                             <TabsTrigger value="president">President's Message</TabsTrigger>
