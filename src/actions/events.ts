@@ -30,6 +30,7 @@ export async function addEvent(data: {
         revalidatePath("/events");
         revalidatePath("/admin/events");
         revalidatePath("/gallery");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to add event:", error);
@@ -43,6 +44,7 @@ export async function deleteEvent(id: number) {
         revalidatePath("/events");
         revalidatePath("/admin/events");
         revalidatePath("/gallery");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to delete event:", error);
@@ -75,6 +77,7 @@ export async function updateEvent(id: number, data: {
         revalidatePath("/events");
         revalidatePath("/admin/events");
         revalidatePath("/gallery");
+        revalidatePath("/");
         return { success: true };
     } catch (error) {
         console.error("Failed to update event:", error);
