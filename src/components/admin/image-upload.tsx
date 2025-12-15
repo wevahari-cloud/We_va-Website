@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useId } from "react";
 import { Button } from "@/components/ui/button";
 import { ImagePlus, Trash, Crop, X } from "lucide-react";
 import Cropper from "react-easy-crop";
@@ -33,7 +33,8 @@ export function ImageUpload({
     aspectRatio,
     aspectRatioLabel = "Free Crop"
 }: ImageUploadProps) {
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = true; // Simplified mounting check since we are client-side only based on "use client"
+    const uploadId = useId();
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -42,9 +43,7 @@ export function ImageUpload({
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+
 
     // Handle global paste events for images
     useEffect(() => {
@@ -191,9 +190,9 @@ export function ImageUpload({
                     onChange={handleFileChange}
                     disabled={disabled}
                     className="hidden"
-                    id="image-upload-input"
+                    id={uploadId}
                 />
-                <label htmlFor="image-upload-input">
+                <label htmlFor={uploadId}>
                     <Button disabled={disabled} variant="secondary" type="button" asChild>
                         <span>
                             <ImagePlus className="h-4 w-4 mr-2" />
