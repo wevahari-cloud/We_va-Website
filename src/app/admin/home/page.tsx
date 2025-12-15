@@ -54,7 +54,7 @@ export default function AdminHomePage() {
             heroTitle: "",
             heroSubtitle: "",
             heroButtonText: "Join Us",
-            heroButtonLink: "/contact",
+            heroButtonLink: "https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1",
             heroImages: [],
             statsMembers: "100+",
             statsProjects: "50+",

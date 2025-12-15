@@ -30,7 +30,7 @@ export function HeroSection({ data }: { data: any }) {
     const heroTitle = data?.heroTitle || "Fellowship Through Service";
     const heroSubtitle = data?.heroSubtitle || "Join the movement creating change in our community.";
     const heroButtonText = data?.heroButtonText || "Join Us";
-    const heroButtonLink = data?.heroButtonLink || "/contact";
+    const heroButtonLink = data?.heroButtonLink || "https://chat.whatsapp.com/FPW5uTF6sI1FGJodn7PPE1";
     const images = data?.heroImages && data.heroImages.length > 0
         ? data.heroImages
         : ["https://placehold.co/1920x1080/003366/FFF?text=Rotaract+Western+Valley"];
