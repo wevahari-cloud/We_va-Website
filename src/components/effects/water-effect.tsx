@@ -46,23 +46,23 @@ export function WaterEffect() {
                         value: "transparent",
                     },
                     stroke: {
-                        width: 2,
+                        width: 4, // Thicker ring
                         color: {
-                            value: ["#00BFFF", "#FFFFFF", "#87CEFA"], // Blue/White ripples
+                            value: ["#FFFFFF", "#00FFFF"], // Bright White and Cyan
                         },
                     },
                     move: {
                         enable: true,
-                        speed: 0, // No movement, just expansion
+                        speed: 0,
                     },
                     number: {
                         value: 0,
                     },
                     opacity: {
-                        value: { min: 0, max: 0.6 },
+                        value: { min: 0, max: 1 }, // Fully opaque start
                         animation: {
                             enable: true,
-                            speed: 1,
+                            speed: 0.5, // Slow fade
                             sync: false,
                             destroy: "min",
                             startValue: "max"
@@ -72,10 +72,10 @@ export function WaterEffect() {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 10, max: 100 }, // Expands from small to large
+                        value: { min: 10, max: 120 },
                         animation: {
                             enable: true,
-                            speed: 20, // Fast expansion
+                            speed: 10, // Slower expansion to be seen
                             sync: false,
                             destroy: "max",
                             startValue: "min"
@@ -84,7 +84,7 @@ export function WaterEffect() {
                     life: {
                         duration: {
                             sync: true,
-                            value: 2
+                            value: 3 // Lasts longer
                         },
                         count: 1
                     },
