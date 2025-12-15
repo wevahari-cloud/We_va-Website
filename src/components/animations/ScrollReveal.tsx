@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface ScrollRevealProps {
     children: ReactNode;
@@ -10,13 +10,6 @@ interface ScrollRevealProps {
 }
 
 export function ScrollReveal({ children, className = "", delay = 0 }: ScrollRevealProps) {
-    const prefersReducedMotion = useReducedMotion();
-
-    // If user prefers reduced motion, render without animations
-    if (prefersReducedMotion) {
-        return <div className={className}>{children}</div>;
-    }
-
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -35,12 +28,6 @@ export function ScrollReveal({ children, className = "", delay = 0 }: ScrollReve
 }
 
 export function FadeIn({ children, className = "", delay = 0 }: ScrollRevealProps) {
-    const prefersReducedMotion = useReducedMotion();
-
-    if (prefersReducedMotion) {
-        return <div className={className}>{children}</div>;
-    }
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -58,12 +45,6 @@ export function FadeIn({ children, className = "", delay = 0 }: ScrollRevealProp
 }
 
 export function SlideIn({ children, className = "", delay = 0, direction = "left" }: ScrollRevealProps & { direction?: "left" | "right" | "up" | "down" }) {
-    const prefersReducedMotion = useReducedMotion();
-
-    if (prefersReducedMotion) {
-        return <div className={className}>{children}</div>;
-    }
-
     const variants = {
         left: { x: -50 },
         right: { x: 50 },
@@ -87,4 +68,3 @@ export function SlideIn({ children, className = "", delay = 0, direction = "left
         </motion.div>
     );
 }
-

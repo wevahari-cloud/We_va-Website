@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface LeaderCardProps {
     leader: any;
@@ -8,28 +8,19 @@ interface LeaderCardProps {
 }
 
 export function LeaderCard({ leader, index }: LeaderCardProps) {
-    const prefersReducedMotion = useReducedMotion();
-
     // Helper to inject Cloudinary transformations
     const getTransformedUrl = (url: string) => {
         if (!url || !url.includes("cloudinary.com")) return url;
         return url.replace("/upload/", "/upload/e_background_removal,b_rgb:F7A81B/");
     };
 
-    // Animation props - disabled when reduced motion is preferred
-    const animationProps = prefersReducedMotion
-        ? {}
-        : {
-            initial: { opacity: 0, y: 20 },
-            whileInView: { opacity: 1, y: 0 },
-            viewport: { once: true, margin: "-50px" },
-            transition: { duration: 0.4, delay: index * 0.05 },
-            whileHover: { y: -8, scale: 1.02 },
-        };
-
     return (
         <motion.div
-            {...animationProps}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            whileHover={{ y: -8, scale: 1.02 }}
             className="bg-card text-card-foreground rounded-lg shadow-sm border overflow-hidden hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col group"
         >
             {/* Card Header with Image and Background Pattern */}
@@ -64,4 +55,3 @@ export function LeaderCard({ leader, index }: LeaderCardProps) {
         </motion.div>
     );
 }
-

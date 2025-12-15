@@ -11,63 +11,23 @@ interface ParticleBackgroundProps {
 
 export function ParticleBackground({ className = "" }: ParticleBackgroundProps) {
     const [init, setInit] = useState(false);
-    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    // Check for reduced motion preference and mobile device
-    useEffect(() => {
-        // Check reduced motion preference
-        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        setPrefersReducedMotion(mediaQuery.matches);
-
-        const handleChange = (e: MediaQueryListEvent) => {
-            setPrefersReducedMotion(e.matches);
-        };
-        mediaQuery.addEventListener("change", handleChange);
-
-        // Check if mobile device
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-        checkMobile();
-        window.addEventListener("resize", checkMobile);
-
-        return () => {
-            mediaQuery.removeEventListener("change", handleChange);
-            window.removeEventListener("resize", checkMobile);
-        };
-    }, []);
 
     // Initialize particles engine once
     useEffect(() => {
-        // Skip particles entirely if user prefers reduced motion
-        if (prefersReducedMotion) {
-            return;
-        }
-
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
             setInit(true);
         });
-    }, [prefersReducedMotion]);
+    }, []);
 
     const particlesLoaded = async (container?: Container) => {
         // Optional callback when particles are loaded
     };
 
-    // Don't render particles if user prefers reduced motion
-    if (prefersReducedMotion) {
-        return null;
-    }
-
     if (!init) {
         return null;
     }
-
-    // Adjust particle count based on device
-    const particleCount = isMobile ? 30 : 60;
-    const fpsLimit = isMobile ? 30 : 60;
 
     return (
         <Particles
@@ -80,11 +40,11 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                         value: "transparent",
                     },
                 },
-                fpsLimit: fpsLimit,
+                fpsLimit: 60,
                 interactivity: {
                     events: {
                         onHover: {
-                            enable: !isMobile, // Disable hover on mobile for performance
+                            enable: true,
                             mode: "repulse",
                         },
                         resize: {
@@ -93,7 +53,7 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                     },
                     modes: {
                         repulse: {
-                            distance: 80,
+                            distance: 100,
                             duration: 0.4,
                         },
                     },
@@ -112,35 +72,35 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
                             default: "out",
                         },
                         random: true,
-                        speed: isMobile ? 0.3 : 0.5, // Slower on mobile
+                        speed: 0.5,
                         straight: false,
                     },
                     number: {
                         density: {
                             enable: true,
                         },
-                        value: particleCount,
+                        value: 80,
                     },
                     opacity: {
                         value: { min: 0.1, max: 0.5 },
                         animation: {
-                            enable: !isMobile, // Disable opacity animation on mobile
+                            enable: true,
                             speed: 1,
                         },
                     },
                     shape: {
-                        type: "circle", // Use only circles for better performance
+                        type: ["circle", "triangle"],
                     },
                     size: {
                         value: { min: 1, max: 3 },
                         animation: {
-                            enable: false, // Disable size animation for performance
+                            enable: true,
                             speed: 2,
                         },
                     },
                     twinkle: {
                         particles: {
-                            enable: !isMobile, // Disable twinkle on mobile
+                            enable: true,
                             frequency: 0.05,
                             opacity: 1,
                         },
@@ -151,4 +111,3 @@ export function ParticleBackground({ className = "" }: ParticleBackgroundProps) 
         />
     );
 }
-
