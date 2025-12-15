@@ -43,7 +43,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                         {item.label}
                     </Link>
                 ))}
-                <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-[#005DAA] font-semibold mr-2">
+                <Button asChild className="bg-white text-[#005DAA] hover:bg-gray-100 font-semibold mr-2">
                     <Link href="https://rzp.io/l/donate-western-valley" target="_blank">Donate</Link>
                 </Button>
                 <Button asChild variant="default" className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 font-semibold">
