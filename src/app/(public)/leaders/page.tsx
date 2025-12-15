@@ -2,6 +2,13 @@ import { getLeaders } from "@/actions/leaders";
 
 export const dynamic = "force-dynamic";
 
+// Helper to inject Cloudinary transformations
+const getTransformedUrl = (url: string) => {
+    if (!url || !url.includes("cloudinary.com")) return url;
+    // Inject background removal and Rotary Yellow background (#F7A81B)
+    return url.replace("/upload/", "/upload/e_background_removal,b_rgb:F7A81B/");
+};
+
 export default async function PublicLeadersPage() {
     const leaders = await getLeaders();
 
@@ -32,15 +39,15 @@ export default async function PublicLeadersPage() {
                                     <img src="/logo-placeholder.png" alt="" className="w-10 h-10 object-contain" />
                                 </div>
 
-                                <div className="w-24 h-24 rounded-full border-2 border-background shadow-sm overflow-hidden bg-background relative z-10">
+                                <div className="w-24 h-24 rounded-full border-2 border-[#F7A81B] shadow-sm overflow-hidden bg-[#F7A81B] relative z-10">
                                     {leader.imageUrl ? (
                                         <img
-                                            src={leader.imageUrl}
+                                            src={getTransformedUrl(leader.imageUrl)}
                                             alt={leader.name}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <div className="flex items-center justify-center h-full text-muted-foreground bg-muted text-xs">
+                                        <div className="flex items-center justify-center h-full text-black bg-[#F7A81B] text-xs font-medium">
                                             No Image
                                         </div>
                                     )}
@@ -49,7 +56,7 @@ export default async function PublicLeadersPage() {
 
                             {/* Card Content */}
                             <div className="p-3 flex-1 flex flex-col items-center text-center">
-                                <h3 className="text-sm font-bold mb-1 text-primary line-clamp-1 leading-tight" title={leader.name}>
+                                <h3 className="text-sm font-bold mb-1 text-[#005DAA] line-clamp-1 leading-tight" title={leader.name}>
                                     {leader.name}
                                 </h3>
                                 <div className="inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold transition-colors border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 mb-2">
