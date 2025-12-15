@@ -49,12 +49,6 @@
   }
 }
 
-@layer base {
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 /* Custom Animations */
 @keyframes pulse-glow {
 
@@ -122,11 +116,20 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+    transition: all 300ms;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 
   .button-hover-glow {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/50;
+    transition: all 300ms;
+  }
+
+  .button-hover-glow:hover {
+    box-shadow: 0 10px 15px -3px rgba(234, 179, 8, 0.5);
   }
 }
 
