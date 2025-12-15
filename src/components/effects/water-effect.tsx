@@ -11,7 +11,7 @@ export function WaterEffect() {
         initParticlesEngine(async (engine) => {
             await loadSlim(engine);
         }).then(() => {
-            console.log("Water Effect initialized");
+            console.log("Ripple Effect initialized");
             setInit(true);
         });
     }, []);
@@ -36,48 +36,47 @@ export function WaterEffect() {
                     },
                     modes: {
                         trail: {
-                            delay: 0,
+                            delay: 0.1,
                             pauseOnStop: true,
-                            quantity: 4,
+                            quantity: 1,
                         },
                     },
                 },
                 particles: {
                     color: {
-                        value: ["#00BFFF", "#1E90FF", "#E0FFFF", "#87CEFA"], // Watery Blues and White
+                        value: "transparent",
+                    },
+                    stroke: {
+                        width: 2,
+                        color: {
+                            value: ["#00BFFF", "#FFFFFF", "#87CEFA"], // Blue/White ripples
+                        },
                     },
                     move: {
-                        direction: "bottom", // Fall down like rain/drizzle
                         enable: true,
-                        outModes: {
-                            default: "destroy",
-                        },
-                        random: false,
-                        speed: 8, // Faster falling
-                        straight: false,
-                        gravity: {
-                            enable: true,
-                            acceleration: 9.8,
-                            maxSpeed: 20
-                        },
+                        speed: 0, // No movement, just expansion
                     },
                     number: {
-                        value: 20, // Start with 20 to verify rendering
+                        value: 0,
                     },
                     opacity: {
-                        value: { min: 0.4, max: 0.8 },
+                        value: { min: 0, max: 0.6 },
                         animation: {
-                            enable: false,
+                            enable: true,
+                            speed: 1,
+                            sync: false,
+                            destroy: "min",
+                            startValue: "max"
                         },
                     },
                     shape: {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 3, max: 6 },
+                        value: { min: 10, max: 100 }, // Expands from small to large
                         animation: {
                             enable: true,
-                            speed: 2,
+                            speed: 20, // Fast expansion
                             sync: false,
                             destroy: "max",
                             startValue: "min"
@@ -86,7 +85,7 @@ export function WaterEffect() {
                     life: {
                         duration: {
                             sync: true,
-                            value: 1.5 // Lasts a bit as it falls
+                            value: 2
                         },
                         count: 1
                     },
