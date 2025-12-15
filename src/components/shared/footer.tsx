@@ -32,45 +32,46 @@ export function Footer() {
                 <div className="space-y-4">
                     <h4 className="text-lg font-semibold text-white">Contact Us</h4>
                     <div className="space-y-3 text-sm text-slate-400">
-                        <Link href="mailto:racwesternvalley@gmail.com" className="flex items-center space-x-2 hover:text-white transition-colors">
-                            <Mail className="h-4 w-4 shrink-0" />
-                            <span>racwesternvalley@gmail.com</span>
-                        </Link>
-                        <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors">
-                            <Instagram className="h-4 w-4 shrink-0" />
-                            <span>@rac_western_valley</span>
-                        </Link>
-                        <Link href="https://www.linkedin.com/company/rotaract-club-of-western-valley/" target="_blank" className="flex items-center space-x-2 hover:text-blue-500 transition-colors">
-                            <Linkedin className="h-4 w-4 shrink-0" />
-                            <span>Rotaract Club of Western Valley</span>
-                        </Link>
+                        <div className="space-y-3 text-sm text-slate-400">
+                            <div className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors cursor-default">
+                                <Mail className="h-4 w-4 shrink-0" />
+                                <span>racwesternvalley@gmail.com</span>
+                            </div>
+                            <Link href="https://www.instagram.com/rac_western_valley/" target="_blank" className="flex items-center space-x-2 hover:text-pink-500 transition-colors">
+                                <Instagram className="h-4 w-4 shrink-0" />
+                                <span>@rac_western_valley</span>
+                            </Link>
+                            <Link href="https://www.linkedin.com/company/rotaract-club-of-western-valley/" target="_blank" className="flex items-center space-x-2 hover:text-blue-500 transition-colors">
+                                <Linkedin className="h-4 w-4 shrink-0" />
+                                <span>Rotaract Club of Western Valley</span>
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Rotaract Essentials (Moved to 4th Column & Expanded) */}
+                    <div className="space-y-6">
+                        <div>
+                            <h4 className="text-lg font-semibold text-white mb-2">Rotary 4 Way Test</h4>
+                            <ul className="text-sm text-slate-400 space-y-1 list-disc pl-4">
+                                <li>Is it the <span className="text-white font-medium">TRUTH</span>?</li>
+                                <li>Is it <span className="text-white font-medium">FAIR</span> to all concerned?</li>
+                                <li>Will it build <span className="text-white font-medium">GOODWILL</span> and BETTER FRIENDSHIPS?</li>
+                                <li>Will it be <span className="text-white font-medium">BENEFICIAL</span> to all concerned?</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-semibold text-white mb-2">Rotaract Prayer</h4>
+                            <p className="text-sm text-slate-400 italic leading-relaxed">
+                                "Oh! God! Our Almighty Father & Ruler of the Universe, We thank thee for the inspiration you have given us for the Rotaract movement based upon Fellowship through Service. We humbly beg you to continue thy grace to enable us to do Our Service to ourselves and to our neighbors and to honor and glory of thy holy name."
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Rotaract Essentials (Moved to 4th Column & Expanded) */}
-                <div className="space-y-6">
-                    <div>
-                        <h4 className="text-lg font-semibold text-white mb-2">Rotary 4 Way Test</h4>
-                        <ul className="text-sm text-slate-400 space-y-1 list-disc pl-4">
-                            <li>Is it the <span className="text-white font-medium">TRUTH</span>?</li>
-                            <li>Is it <span className="text-white font-medium">FAIR</span> to all concerned?</li>
-                            <li>Will it build <span className="text-white font-medium">GOODWILL</span> and BETTER FRIENDSHIPS?</li>
-                            <li>Will it be <span className="text-white font-medium">BENEFICIAL</span> to all concerned?</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-semibold text-white mb-2">Rotaract Prayer</h4>
-                        <p className="text-sm text-slate-400 italic leading-relaxed">
-                            "Oh! God! Our Almighty Father & Ruler of the Universe, We thank thee for the inspiration you have given us for the Rotaract movement based upon Fellowship through Service. We humbly beg you to continue thy grace to enable us to do Our Service to ourselves and to our neighbors and to honor and glory of thy holy name."
-                        </p>
-                    </div>
+                <div className="container mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                    <p>&copy; {new Date().getFullYear()} Rotaract Club of Western Valley. All rights reserved.</p>
+                    <p className="mt-1">Developed by Antigravity Agents.</p>
                 </div>
-            </div>
-
-            <div className="container mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-                <p>&copy; {new Date().getFullYear()} Rotaract Club of Western Valley. All rights reserved.</p>
-                <p className="mt-1">Developed by Antigravity Agents.</p>
-            </div>
         </footer>
     );
 }
