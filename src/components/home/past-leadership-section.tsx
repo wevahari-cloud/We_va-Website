@@ -42,7 +42,7 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                                                 <img
                                                     src={year.themeLogoUrl}
                                                     alt="Year Theme"
-                                                    className="w-full h-full object-cover rounded-full scale-110"
+                                                    className="w-full h-full object-contain rounded-full"
                                                 />
                                             </div>
                                         </div>
