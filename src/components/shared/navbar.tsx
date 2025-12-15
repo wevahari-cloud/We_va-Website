@@ -27,7 +27,7 @@ export async function Navbar() {
                 {/* Logo Section */}
                 <Link href="/" className="flex items-center gap-3">
                     {logoUrl && (
-                        <img src={logoUrl} alt="Club Logo" className="h-12 w-auto object-contain" />
+                        <img src={logoUrl} alt="Club Logo" className="h-16 w-auto object-contain" />
                     )}
                 </Link>
 
