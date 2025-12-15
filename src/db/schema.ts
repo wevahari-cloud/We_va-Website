@@ -105,3 +105,10 @@ export const whyJoin = pgTable("why_join", {
     order: integer("order").default(0),
     createdAt: timestamp("created_at").defaultNow(),
 });
+
+// Site Settings (for navbar logo, etc.)
+export const siteSettings = pgTable("site_settings", {
+    id: serial("id").primaryKey(),
+    navbarLogoUrl: text("navbar_logo_url"),
+    updatedAt: timestamp("updated_at").defaultNow(),
+});
