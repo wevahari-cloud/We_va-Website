@@ -22,12 +22,12 @@ export async function Navbar() {
     const logoUrl = settings.navbarLogoUrl ? getTransparentUrl(settings.navbarLogoUrl) : null;
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur my-[1%]">
+        <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur">
             <div className="container mx-auto px-4 md:px-8 flex h-20 items-center">
                 {/* Logo Section */}
                 <Link href="/" className="flex items-center gap-3 ml-4">
                     {logoUrl && (
-                        <img src={logoUrl} alt="Club Logo" className="h-24 w-auto object-contain" />
+                        <img src={logoUrl} alt="Club Logo" className="h-32 w-auto object-contain" />
                     )}
                 </Link>
 
