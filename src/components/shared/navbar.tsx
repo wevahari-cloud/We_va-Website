@@ -23,11 +23,11 @@ export async function Navbar() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur">
-            <div className="relative w-full px-[10px] flex h-20 items-center justify-between">
+            <div className="relative w-full px-[10px] flex h-24 lg:h-20 items-center justify-between">
                 {/* Left Section: HI! + Logo */}
                 <div className="flex items-center gap-2 lg:gap-4">
                     {/* HI! Decoration */}
-                    <span className="text-4xl lg:text-5xl font-black select-none tracking-tighter drop-shadow-sm">
+                    <span className="text-5xl font-black select-none tracking-tighter drop-shadow-sm">
                         <span className="text-[#4285F4]">H</span>
                         <span className="text-[#EA4335]">I</span>
                         <span className="text-[#FBBC05]">!</span>
@@ -36,7 +36,7 @@ export async function Navbar() {
                     {/* Logo Section */}
                     <Link href="/">
                         {logoUrl && (
-                            <img src={logoUrl} alt="Club Logo" className="h-12 lg:h-32 w-auto object-contain" />
+                            <img src={logoUrl} alt="Club Logo" className="h-24 lg:h-32 w-auto object-contain" />
                         )}
                     </Link>
                 </div>
