@@ -9,6 +9,9 @@ const pacifico = Pacifico({ subsets: ["latin"], weight: "400", variable: "--font
 export const metadata: Metadata = {
   title: "Rotaract Club of Western Valley | Club 214199",
   description: "Official website of Rotaract Club of Western Valley (RID 3206). Fellowship Through Service.",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({

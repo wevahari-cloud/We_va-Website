@@ -37,7 +37,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                             <a
                                 href={item.href}
                                 className={cn(
-                                    "transition-colors hover:text-white",
+                                    "transition-colors hover:text-yellow-400",
                                     pathname === item.href ? "text-white font-semibold" : "text-white/80"
                                 )}
                             >
@@ -47,7 +47,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                             <Link
                                 href={item.href}
                                 className={cn(
-                                    "transition-colors hover:text-white",
+                                    "transition-colors hover:text-yellow-400",
                                     pathname === item.href ? "text-white font-semibold" : "text-white/80"
                                 )}
                             >
