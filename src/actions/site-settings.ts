@@ -11,14 +11,17 @@ export async function getSiteSettings() {
         if (settings.length === 0) {
             // Create default settings
             const [newSettings] = await db.insert(siteSettings).values({
-                navbarLogoUrl: "/pulse-logo.jpg",
+                navbarLogoUrl: "/rotaract-logo.png",
             }).returning();
             return newSettings;
         }
-        return settings[0];
+        // If settings exist but logic falls through (unlikely with limit 1) or error fallback
+        if (settings.length > 0) return settings[0];
+
+        return { id: 1, navbarLogoUrl: "/rotaract-logo.png", updatedAt: new Date() };
     } catch (error) {
         console.error("Error fetching site settings:", error);
-        return { id: 1, navbarLogoUrl: "/pulse-logo.jpg", updatedAt: new Date() };
+        return { id: 1, navbarLogoUrl: "/rotaract-logo.png", updatedAt: new Date() };
     }
 }
 

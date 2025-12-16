@@ -32,16 +32,29 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
                 {navItems.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                            "transition-colors hover:text-white",
-                            pathname === item.href ? "text-white font-semibold" : "text-white/80"
+                    <React.Fragment key={item.href}>
+                        {item.href === "/about" ? (
+                            <a
+                                href={item.href}
+                                className={cn(
+                                    "transition-colors hover:text-white",
+                                    pathname === item.href ? "text-white font-semibold" : "text-white/80"
+                                )}
+                            >
+                                {item.label}
+                            </a>
+                        ) : (
+                            <Link
+                                href={item.href}
+                                className={cn(
+                                    "transition-colors hover:text-white",
+                                    pathname === item.href ? "text-white font-semibold" : "text-white/80"
+                                )}
+                            >
+                                {item.label}
+                            </Link>
                         )}
-                    >
-                        {item.label}
-                    </Link>
+                    </React.Fragment>
                 ))}
                 <Button asChild className="bg-white text-[#005DAA] hover:bg-gray-100 font-semibold mr-2">
                     <Link href="https://rzp.io/l/donate-western-valley" target="_blank">Donate</Link>
@@ -66,17 +79,31 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                         </SheetHeader>
                         <nav className="flex flex-col gap-4 mt-8">
                             {navItems.map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className={cn(
-                                        "block px-2 py-1 text-lg font-medium transition-colors hover:text-primary",
-                                        pathname === item.href ? "text-primary" : "text-muted-foreground"
-                                    )}
-                                >
-                                    {item.label}
-                                </Link>
+                                item.href === "/about" ? (
+                                    <a
+                                        key={item.href}
+                                        href={item.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className={cn(
+                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-primary",
+                                            pathname === item.href ? "text-primary" : "text-muted-foreground"
+                                        )}
+                                    >
+                                        {item.label}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className={cn(
+                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-primary",
+                                            pathname === item.href ? "text-primary" : "text-muted-foreground"
+                                        )}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                )
                             ))}
                             <Button asChild variant="outline" className="mt-4 w-full border-[#005DAA] text-[#005DAA] hover:bg-[#005DAA] hover:text-white font-semibold">
                                 <Link href="https://rzp.io/l/donate-western-valley" target="_blank">Donate Funds</Link>
