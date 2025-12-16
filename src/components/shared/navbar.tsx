@@ -36,7 +36,7 @@ export async function Navbar() {
                     {/* Logo Section */}
                     <Link href="/">
                         {logoUrl && (
-                            <img src={logoUrl} alt="Club Logo" className="h-16 w-auto object-contain" />
+                            <img src={logoUrl} alt="Club Logo" className="h-32 w-auto object-contain" />
                         )}
                     </Link>
                 </div>
