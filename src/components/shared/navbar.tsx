@@ -23,7 +23,7 @@ export async function Navbar() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-[#005DAA] backdrop-blur">
-            <div className="relative w-full px-[10px] flex h-24 lg:h-20 items-center justify-between">
+            <div className="relative w-full px-[10px] flex py-0.5 lg:h-20 items-center justify-between">
                 {/* Left Section: HI! + Logo */}
                 <div className="flex items-center gap-2 lg:gap-4">
                     {/* HI! Decoration */}
