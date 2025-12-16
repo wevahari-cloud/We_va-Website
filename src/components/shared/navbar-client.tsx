@@ -85,7 +85,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                                         href={item.href}
                                         onClick={() => setIsOpen(false)}
                                         className={cn(
-                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-primary",
+                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-yellow-400",
                                             pathname === item.href ? "text-primary" : "text-muted-foreground"
                                         )}
                                     >
@@ -97,7 +97,7 @@ export function NavbarClient({ navItems }: NavbarClientProps) {
                                         href={item.href}
                                         onClick={() => setIsOpen(false)}
                                         className={cn(
-                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-primary",
+                                            "block px-2 py-1 text-lg font-medium transition-colors hover:text-yellow-400",
                                             pathname === item.href ? "text-primary" : "text-muted-foreground"
                                         )}
                                     >
