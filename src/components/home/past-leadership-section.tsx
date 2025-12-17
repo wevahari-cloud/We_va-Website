@@ -1,5 +1,7 @@
+"use client";
 
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 interface PastLeadershipSectionProps {
     pastYears: any[];
@@ -19,6 +21,39 @@ const getTransparentUrl = (url: string) => {
 };
 
 export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps) {
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+
+    useEffect(() => {
+        if (isPaused || pastYears.length <= 1) return;
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % pastYears.length);
+        }, 3000); // 3 seconds
+
+        return () => clearInterval(interval);
+    }, [isPaused, pastYears.length]);
+
+    useEffect(() => {
+        if (!scrollContainerRef.current) return;
+
+        const container = scrollContainerRef.current;
+        const cardWidth = 440; // approximate card width + gap
+        const scrollPosition = currentIndex * cardWidth;
+
+        container.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+    }, [currentIndex]);
+
+    // Pause auto-scroll when user manually scrolls
+    const handleManualScroll = () => {
+        setIsPaused(true);
+        setTimeout(() => setIsPaused(false), 5000); // Resume after 5 seconds
+    };
+
     if (pastYears.length === 0) return null;
 
     return (
@@ -27,7 +62,12 @@ export function PastLeadershipSection({ pastYears }: PastLeadershipSectionProps)
                 <h2 className="text-3xl font-bold text-center mb-12">Past Leadership Archives</h2>
 
                 <div className="relative w-full">
-                    <div className="flex overflow-x-auto gap-8 pb-8 px-4 snap-x snap-mandatory no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    <div
+                        ref={scrollContainerRef}
+                        onScroll={handleManualScroll}
+                        className="flex overflow-x-auto gap-8 pb-8 px-4 snap-x snap-mandatory no-scrollbar"
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    >
                         {pastYears.map((year) => (
                             <div
                                 key={year.id}

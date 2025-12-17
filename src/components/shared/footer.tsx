@@ -80,7 +80,7 @@ export function Footer() {
             </div>
 
             <div className="container mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-                <p>&copy; {new Date().getFullYear()} Rotaract Club of Western Valley. All rights reserved. (v2.0)</p>
+                <p>&copy; {new Date().getFullYear()} Rotaract Club of Western Valley. All rights reserved. (v2.1)</p>
                 <p className="mt-1">Developed by Antigravity Agents.</p>
             </div>
         </footer>
